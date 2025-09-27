@@ -179,24 +179,7 @@ function App() {
            
           {/* Statistiques et filtres */}
           <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <input
-                type="text"
-                placeholder="Rechercher une tâche..."
-                className="input input-bordered w-full focus:input-primary transition-all duration-300"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <select
-                className="select select-bordered w-full sm:w-48 focus:select-primary transition-all duration-300"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as "date" | "priority" | "text")}
-              >
-                <option value="date">Trier par Date</option>
-                <option value="priority">Trier par Priorité</option>
-                <option value="text">Trier par Nom</option>
-              </select>
-            </div>
+             
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
               <div className="flex flex-wrap gap-2">
                 <button
