@@ -13,9 +13,7 @@ type Todo = {
 function App() {
   const [input, setInput] = useState("");
   const [priority, setPriority] = useState<Priority>("Moyenne");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState<"date" | "priority" | "text">("date");
-
+ 
   //Tableau qi va contenir les todos
   const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -53,10 +51,8 @@ function App() {
     setTodos(newTodos);
     setInput("");
     setPriority("Moyenne");
-    console.log(todos);
   }
 
-  // Fonction de filtrage et de tri
   const getFilteredAndSortedTodos = () => {
     let filtered = todos;
     
@@ -65,30 +61,8 @@ function App() {
       filtered = todos.filter((todo) => todo.priority === filter);
     }
     
-    // Filtrage par recherche
-    if (searchTerm.trim()) {
-      filtered = filtered.filter((todo) =>
-        todo.text.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    
-    // Tri
-    return filtered.sort((a, b) => {
-      switch (sortBy) {
-        case "priority": {
-          const priorityOrder = { "Urgente": 3, "Moyenne": 2, "Basse": 1 };
-          return priorityOrder[b.priority] - priorityOrder[a.priority];
-        }
-        case "text":
-          return a.text.localeCompare(b.text);
-        case "date":
-        default:
-          return b.id - a.id; // Plus récent en premier
-      }
-    });
+    return filtered;
   };
-
-  const filteredTodos = getFilteredAndSortedTodos();
 
   const urgentCount = todos.filter((t) => t.priority === "Urgente").length;
   const moyenneCount = todos.filter((t) => t.priority === "Moyenne").length;
@@ -239,9 +213,9 @@ function App() {
             </div>
 
             {/* Liste des todos */}
-            {filteredTodos.length > 0 ? (
+            {getFilteredAndSortedTodos().length > 0 ? (
               <div className="space-y-2">
-                {filteredTodos.map((todo) => (
+                {getFilteredAndSortedTodos().map((todo) => (
                   <div 
                     key={todo.id}
                     className="animate-fadeIn"
