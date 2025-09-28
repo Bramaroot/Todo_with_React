@@ -142,7 +142,7 @@ function App() {
               <Calendar className="w-10 h-10" />
               Gestionnaire de tâches
             </h1>
-            <p className="text-base-content/70">Organisez vos tâches avec style</p>
+            <p className="text-base-content/70">Organisez vos tâches avec style et efficacité</p>
           </div>
 
           {/* Formulaire d'ajout */}
