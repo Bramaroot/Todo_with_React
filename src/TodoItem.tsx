@@ -1,5 +1,5 @@
-import { Trash2, AlertTriangle, Zap, Clock, Edit2, Check, X } from "lucide-react";
 import { useState } from "react";
+
 
 type Priority = "Urgente" | "Moyenne" | "Basse";
 
@@ -36,23 +36,24 @@ const TodoItem = ({ todo, onDelete, onEdit, isSelected, onToggleSelect }: Props)
   };
 
   return (
-    <div className={`group p-4 bg-base-100 rounded-xl border border-base-300 hover:border-primary/50 transition-all duration-300 hover:shadow-lg ${
-      isSelected ? 'ring-2 ring-primary/30 bg-primary/5' : ''
-    }`}>
+    <div className={`group p-4 bg-[hsl(var(--card))] rounded-xl border transition-all duration-300 hover:shadow-hype ${isSelected
+        ? 'border-[hsl(var(--hype-neonBlue))] ring-2 ring-[hsl(var(--hype-neonBlue)/0.3)] bg-[hsl(var(--hype-neonBlue)/0.05)] shadow-hype-glow'
+        : 'border-[hsl(var(--border))] hover:border-[hsl(var(--hype-blue))]'
+      }`}>
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3 flex-1">
           <input
             type="checkbox"
             checked={isSelected}
             onChange={() => onToggleSelect(todo.id)}
-            className="checkbox checkbox-primary checkbox-sm hover:scale-110 transition-transform duration-200"
+            className="w-5 h-5 rounded border-2 border-[hsl(var(--border))] bg-[hsl(var(--input))] checked:bg-[hsl(var(--hype-blue))] checked:border-[hsl(var(--hype-blue))] hover:scale-110 transition-all duration-200 cursor-pointer appearance-none checked:after:content-['✓'] checked:after:text-white checked:after:text-sm checked:after:flex checked:after:items-center checked:after:justify-center"
             title="Sélectionner cette tâche"
           />
-          
+
           {isEditing ? (
             <div className="flex-1 flex gap-2">
               <input
-                className="input input-bordered input-sm flex-1"
+                className="flex-1 px-3 py-2 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[hsl(var(--hype-blue))] transition-all duration-300"
                 value={editText}
                 onChange={(e) => setEditText(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSave()}
@@ -61,7 +62,7 @@ const TodoItem = ({ todo, onDelete, onEdit, isSelected, onToggleSelect }: Props)
                 placeholder="Nouveau texte..."
               />
               <select
-                className="select select-bordered select-sm w-32"
+                className="w-32 px-3 py-2 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-[hsl(var(--hype-blue))] transition-all duration-300"
                 value={editPriority}
                 onChange={(e) => setEditPriority(e.target.value as Priority)}
                 title="Modifier la priorité"
@@ -73,65 +74,60 @@ const TodoItem = ({ todo, onDelete, onEdit, isSelected, onToggleSelect }: Props)
             </div>
           ) : (
             <div className="flex-1">
-              <span className={`text-lg font-medium transition-all duration-300 ${
-                isSelected ? 'line-through text-base-content/50' : 'text-base-content'
-              }`}>
+              <span className={`text-lg font-medium transition-all duration-300 ${isSelected ? 'line-through text-muted-foreground' : 'text-foreground'
+                }`}>
                 {todo.text}
-          </span>
+              </span>
             </div>
           )}
-          
+
           {!isEditing && (
-          <span
-              className={`badge badge-sm font-semibold flex items-center gap-1 ${
-              todo.priority === "Urgente"
-                ? "badge-error"
-                : todo.priority === "Moyenne"
-                ? "badge-warning"
-                  : "badge-success"
-            }`}
-          >
-              {todo.priority === "Urgente" && <AlertTriangle className="w-3 h-3" />}
-              {todo.priority === "Moyenne" && <Zap className="w-3 h-3" />}
-              {todo.priority === "Basse" && <Clock className="w-3 h-3" />}
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 transition-all duration-300 ${todo.priority === "Urgente"
+                  ? "bg-[hsl(var(--destructive)/0.15)] text-[hsl(var(--destructive))] border border-[hsl(var(--destructive)/0.3)]"
+                  : todo.priority === "Moyenne"
+                    ? "bg-[hsl(var(--hype-yellow)/0.15)] text-[hsl(var(--hype-darkYellow))] border border-[hsl(var(--hype-yellow)/0.3)]"
+                    : "bg-[hsl(var(--hype-neonBlue)/0.15)] text-[hsl(var(--hype-neonBlue))] border border-[hsl(var(--hype-neonBlue)/0.3)]"
+                }`}
+            >
               <span>{todo.priority}</span>
-          </span>
+            </span>
           )}
         </div>
-        
-        <div className="flex gap-1">
+
+        <div className="flex gap-2 text-sm font-medium">
           {isEditing ? (
             <>
-              <button 
+              <button
                 onClick={handleSave}
-                className="btn btn-ghost btn-sm text-success hover:bg-success hover:text-success-content transition-all duration-300 transform hover:scale-110"
-                title="Sauvegarder les modifications"
+                className="px-3 py-1 text-[hsl(var(--hype-neonBlue))] bg-[hsl(var(--hype-neonBlue)/0.1)] hover:bg-[hsl(var(--hype-neonBlue))] hover:text-white rounded-lg transition-all duration-300"
+                title="Sauvegarder"
               >
-                <Check className="w-4 h-4" />
+                OK
               </button>
-              <button 
+              <button
                 onClick={handleCancel}
-                className="btn btn-ghost btn-sm text-error hover:bg-error hover:text-error-content transition-all duration-300 transform hover:scale-110"
-                title="Annuler les modifications"
+                className="px-3 py-1 text-[hsl(var(--destructive))] bg-[hsl(var(--destructive)/0.1)] hover:bg-[hsl(var(--destructive))] hover:text-white rounded-lg transition-all duration-300"
+                title="Annuler"
               >
-                <X className="w-4 h-4" />
+                Annuler
               </button>
             </>
           ) : (
             <>
-              <button 
+              <button
                 onClick={() => setIsEditing(true)}
-                className="btn btn-ghost btn-sm text-primary hover:bg-primary hover:text-primary-content opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110"
-                title="Modifier cette tâche"
+                className="px-3 py-1 text-[hsl(var(--hype-blue))] hover:bg-[hsl(var(--hype-blue))] hover:text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300"
+                title="Modifier"
               >
-                <Edit2 className="w-4 h-4" />
+                Modifier
               </button>
-              <button 
-                onClick={onDelete} 
-                className="btn btn-ghost btn-sm text-error hover:bg-error hover:text-error-content opacity-0 group-hover:opacity-100 transition-all duration-300 transform hover:scale-110"
-                title="Supprimer cette tâche"
+              <button
+                onClick={onDelete}
+                className="px-3 py-1 text-[hsl(var(--destructive))] hover:bg-[hsl(var(--destructive))] hover:text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300"
+                title="Supprimer"
               >
-                <Trash2 className="w-4 h-4" />
+                Supprimer
               </button>
             </>
           )}

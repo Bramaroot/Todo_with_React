@@ -1,6 +1,72 @@
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: dracula;
+
+@layer theme {
+  :root {
+    /* Mode sombre Hype activé par défaut */
+    --background: 220 15% 10%;
+    /* Softer dark blue-grey */
+    --foreground: 220 20% 90%;
+
+    --card: 220 15% 14%;
+    /* Slightly lighter than background */
+    --card-foreground: 220 20% 90%;
+
+    --popover: 220 15% 14%;
+    --popover-foreground: 220 20% 90%;
+
+    /* Couleurs Hype - Version "Soft" (Desaturated) */
+    --primary: 215 30% 50%;
+    /* Soft slate blue */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 215 40% 65%;
+    /* Soft sky blue */
+    --secondary-foreground: 0 0% 100%;
+
+    /* Jaune doré accent - Muted */
+    --accent: 40 50% 70%;
+    /* Soft beige/yellow */
+    --accent-foreground: 0 0% 0%;
+
+    --muted: 220 10% 20%;
+    --muted-foreground: 220 10% 60%;
+
+    --destructive: 0 60% 70%;
+    /* Soft red */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 10% 20%;
+    --input: 220 10% 20%;
+    --ring: 215 30% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom Hype design tokens - Softened */
+    --hype-blue: 215 30% 50%;
+    /* Soft slate */
+    --hype-darkBlue: 215 30% 35%;
+    --hype-neonBlue: 215 40% 65%;
+    /* Replaces neon with soft blue */
+
+    --hype-yellow: 40 50% 70%;
+    --hype-darkYellow: 40 40% 60%;
+    --hype-lightYellow: 40 40% 80%;
+
+    --hype-black: 220 15% 8%;
+    --hype-darkBlack: 220 15% 5%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }
 
 /* Animations personnalisées */
@@ -9,6 +75,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -20,6 +87,7 @@
     opacity: 0;
     transform: translateX(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -27,11 +95,14 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
   }
+
   50% {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 }
 
@@ -53,16 +124,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(var(--b2));
+  background: hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--p));
+  background: hsl(var(--border));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--pf));
+  background: hsl(var(--muted-foreground));
 }
 
 /* Amélioration des transitions */
@@ -70,4 +141,38 @@
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+/* Utility classes pour le design Hype */
+.gradient-hype {
+  background: linear-gradient(135deg,
+      hsl(var(--hype-blue)) 0%,
+      hsl(var(--hype-neonBlue)) 50%,
+      hsl(var(--hype-yellow)) 100%);
+}
+
+.gradient-hype-text {
+  background: linear-gradient(135deg,
+      hsl(var(--hype-blue)) 0%,
+      hsl(var(--hype-yellow)) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shadow-hype {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-hype-glow {
+  box-shadow: none;
+}
+
+.border-hype {
+  border-color: hsl(var(--hype-blue));
+}
+
+.bg-hype-card {
+  background: hsl(var(--card));
+  box-shadow: 0 4px 20px hsl(0 0% 0% / 0.3);
 }

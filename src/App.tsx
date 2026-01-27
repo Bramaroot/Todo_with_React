@@ -107,22 +107,27 @@ function App() {
   }
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-300 flex flex-col">
-        <div className="flex-1 flex justify-center items-start py-8">
-          <div className="w-full max-w-4xl mx-4 flex flex-col gap-6 bg-base-100 p-8 rounded-2xl shadow-2xl border border-base-300">
+      <div className="min-h-screen bg-background flex flex-col relative overflow-hidden">
+        {/* Background gradient effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--hype-darkBlue))] via-background to-background opacity-50" />
+        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-[hsl(var(--hype-neonBlue))] opacity-5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-[hsl(var(--hype-yellow))] opacity-5 blur-[120px] rounded-full" />
+
+        <div className="flex-1 flex justify-center items-start py-8 relative z-10">
+          <div className="w-full max-w-4xl mx-4 flex flex-col gap-6 bg-hype-card p-8 rounded-2xl shadow-hype border border-[hsl(var(--border))] backdrop-blur-sm">
           {/* Header avec titre */}
           <div className="text-center mb-6">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2 flex items-center justify-center gap-3">
-              <Calendar className="w-10 h-10" />
+            <h1 className="text-4xl font-bold gradient-hype-text mb-2 flex items-center justify-center gap-3">
+              <Calendar className="w-10 h-10 text-[hsl(var(--hype-neonBlue))]" />
               Gestionnaire de tâches
             </h1>
-            <p className="text-base-content/70">Organisez vos tâches avec style et efficacité</p>
+            <p className="text-muted-foreground">Organisez vos tâches avec style et efficacité</p>
           </div>
 
           {/* Formulaire d'ajout */}
-          <div className="flex flex-col sm:flex-row gap-4 p-6 bg-base-200 rounded-xl border border-base-300">
+          <div className="flex flex-col sm:flex-row gap-4 p-6 bg-[hsl(var(--muted)/0.3)] rounded-xl border border-[hsl(var(--border))] hover:border-[hsl(var(--hype-neonBlue))] transition-all duration-300">
             <input
-              className="input input-bordered w-full focus:input-primary transition-all duration-300"
+              className="w-full px-4 py-3 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[hsl(var(--hype-blue))] focus:border-transparent transition-all duration-300"
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -130,19 +135,19 @@ function App() {
               placeholder="Hey Comrade, tu veux ajouter une nouvelle tâche ?"
             />
             <select
-              className="select select-bordered w-full sm:w-48 focus:select-primary transition-all duration-300"
+              className="w-full sm:w-48 px-4 py-3 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-[hsl(var(--hype-blue))] focus:border-transparent transition-all duration-300"
               value={priority}
               onChange={(e) => setPriority(e.target.value as Priority)}
               title="Sélectionner la priorité"
             >
-              <option value="Urgente">Urgente</option>
-              <option value="Moyenne">Moyenne</option>
-              <option value="Basse">Basse</option>
+              <option value="Urgente">🔥 Urgente</option>
+              <option value="Moyenne">⚡ Moyenne</option>
+              <option value="Basse">📋 Basse</option>
             </select>
 
-            <button 
-              onClick={addTodo} 
-              className="btn btn-primary btn-lg hover:btn-secondary transition-all duration-300 transform hover:scale-105"
+            <button
+              onClick={addTodo}
+              className="px-6 py-3 bg-[hsl(var(--hype-blue))] hover:bg-[hsl(var(--hype-neonBlue))] text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-hype-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2 whitespace-nowrap"
               disabled={!input.trim()}
             >
               <Plus className="w-5 h-5" />
@@ -153,14 +158,14 @@ function App() {
            
           {/* Statistiques et filtres */}
           <div className="space-y-4">
-             
+
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
               <div className="flex flex-wrap gap-2">
                 <button
-                  className={`btn btn-sm transition-all duration-300 ${
-                    filter === "Tous" 
-                      ? "btn-primary shadow-lg" 
-                      : "btn-outline hover:btn-primary"
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${
+                    filter === "Tous"
+                      ? "bg-[hsl(var(--hype-blue))] text-white shadow-hype-glow"
+                      : "bg-[hsl(var(--muted)/0.3)] text-muted-foreground border border-[hsl(var(--border))] hover:border-[hsl(var(--hype-blue))] hover:text-foreground"
                   }`}
                   onClick={() => setFilter("Tous")}
                 >
@@ -168,42 +173,42 @@ function App() {
                 </button>
 
                 <button
-                  className={`btn btn-sm transition-all duration-300 ${
-                    filter === "Urgente" 
-                      ? "btn-error shadow-lg" 
-                      : "btn-outline hover:btn-error"
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${
+                    filter === "Urgente"
+                      ? "bg-[hsl(var(--destructive))] text-white shadow-lg"
+                      : "bg-[hsl(var(--muted)/0.3)] text-muted-foreground border border-[hsl(var(--border))] hover:border-[hsl(var(--destructive))] hover:text-foreground"
                   }`}
                   onClick={() => setFilter("Urgente")}
                 >
-                 Urgente ({urgentCount})
+                 🔥 Urgente ({urgentCount})
                 </button>
 
                 <button
-                  className={`btn btn-sm transition-all duration-300 ${
-                    filter === "Moyenne" 
-                      ? "btn-warning shadow-lg" 
-                      : "btn-outline hover:btn-warning"
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${
+                    filter === "Moyenne"
+                      ? "bg-[hsl(var(--hype-yellow))] text-black shadow-lg"
+                      : "bg-[hsl(var(--muted)/0.3)] text-muted-foreground border border-[hsl(var(--border))] hover:border-[hsl(var(--hype-yellow))] hover:text-foreground"
                   }`}
                   onClick={() => setFilter("Moyenne")}
                 >
-                  Moyenne ({moyenneCount})
+                  ⚡ Moyenne ({moyenneCount})
                 </button>
 
                 <button
-                  className={`btn btn-sm transition-all duration-300 ${
-                    filter === "Basse" 
-                      ? "btn-success shadow-lg" 
-                      : "btn-outline hover:btn-success"
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${
+                    filter === "Basse"
+                      ? "bg-[hsl(var(--hype-neonBlue))] text-white shadow-lg"
+                      : "bg-[hsl(var(--muted)/0.3)] text-muted-foreground border border-[hsl(var(--border))] hover:border-[hsl(var(--hype-neonBlue))] hover:text-foreground"
                   }`}
                   onClick={() => setFilter("Basse")}
                 >
-                  Basse ({basseCount})
+                  📋 Basse ({basseCount})
                 </button>
               </div>
-              
+
               {selectedTodos.size > 0 && (
               <button
-                  className="btn btn-success btn-sm hover:btn-error transition-all duration-300 transform hover:scale-105"
+                  className="px-4 py-2 bg-[hsl(var(--hype-neonBlue))] hover:bg-[hsl(var(--hype-yellow))] hover:text-black text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105 flex items-center gap-2 shadow-hype-glow"
                 onClick={finishSelected}
               >
                   <CheckCircle2 className="w-4 h-4" />
@@ -214,9 +219,9 @@ function App() {
 
             {/* Liste des todos */}
             {getFilteredAndSortedTodos().length > 0 ? (
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {getFilteredAndSortedTodos().map((todo) => (
-                  <div 
+                  <div
                     key={todo.id}
                     className="animate-fadeIn"
                   >
@@ -231,14 +236,14 @@ function App() {
                 ))}
               </div>
             ) : (
-              <div className="flex justify-center items-center flex-col p-12 bg-base-200 rounded-xl border-2 border-dashed border-base-300">
-                <div className="text-6xl mb-2">📝</div>
-                <h3 className="text-xl font-semibold text-base-content/70 mb-2">
+              <div className="flex justify-center items-center flex-col p-12 bg-[hsl(var(--muted)/0.2)] rounded-xl border-2 border-dashed border-[hsl(var(--border))]">
+                <div className="text-6xl mb-4 animate-pulse-slow">📝</div>
+                <h3 className="text-xl font-semibold text-foreground mb-2">
                   Aucune tâche trouvée
                 </h3>
-                <p className="text-base-content/50 text-center">
-                  {filter === "Tous" 
-                    ? "Commencez par ajouter votre première tâche !" 
+                <p className="text-muted-foreground text-center">
+                  {filter === "Tous"
+                    ? "Commencez par ajouter votre première tâche !"
                     : `Aucune tâche avec la priorité "${filter}"`}
                 </p>
               </div>
@@ -248,14 +253,14 @@ function App() {
         </div>
         
         {/* Footer fixé en bas */}
-        <footer className="mt-auto bg-base-100/80 backdrop-blur-sm border-t border-base-300 text-center py-4 text-base-content/60">
+        <footer className="mt-auto bg-[hsl(var(--card))]/80 backdrop-blur-sm border-t border-[hsl(var(--border))] text-center py-4 text-muted-foreground relative z-10">
           <p className="flex items-center justify-center gap-2">
-            Made with <Heart className="w-4 h-4 text-red-500 animate-pulse" /> by 
-            <a 
-              href="https://bramablog.vercel.app" 
-              target="_blank" 
+            Made with <Heart className="w-4 h-4 text-[hsl(var(--destructive))] animate-pulse" /> by
+            <a
+              href="https://bramablog.vercel.app"
+              target="_blank"
               rel="noopener noreferrer"
-              className="text-primary hover:text-primary-focus transition-colors duration-300 font-semibold"
+              className="gradient-hype-text font-semibold hover:opacity-80 transition-opacity duration-300"
             >
               Brama
             </a>
