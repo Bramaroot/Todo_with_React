@@ -11,6 +11,7 @@ import type {
   CarouselProfile,
   CarouselSlide,
   CarouselGlobalSettings,
+  SavedProject,
 } from '../types/carousel.types';
 import {
   DEFAULT_PROFILE,
@@ -33,6 +34,14 @@ export interface UseCarouselStateReturn {
   // Settings
   settings: CarouselGlobalSettings;
   updateSettings: (settings: CarouselGlobalSettings) => void;
+
+  // Project Management
+  savedProjects: SavedProject[];
+  currentProjectName: string;
+  saveProject: (name: string) => void;
+  loadProject: (project: SavedProject) => void;
+  deleteProject: (id: string) => void;
+  startNewProject: () => void;
 
   // Utility
   resetAll: () => void;
@@ -58,6 +67,17 @@ export function useCarouselState(): UseCarouselStateReturn {
   const [settings, setSettings] = useLocalStorage<CarouselGlobalSettings>(
     'carousel-settings',
     DEFAULT_SETTINGS
+  );
+
+  // Projects state
+  const [savedProjects, setSavedProjects] = useLocalStorage<SavedProject[]>(
+    'carousel-projects',
+    []
+  );
+
+  const [currentProjectName, setCurrentProjectName] = useLocalStorage<string>(
+    'carousel-current-project-name',
+    'Nouveau Projet'
   );
 
   /**
@@ -162,6 +182,71 @@ export function useCarouselState(): UseCarouselStateReturn {
   );
 
   /**
+   * Saves current state as a project
+   */
+  const saveProject = useCallback((name: string) => {
+    const project: SavedProject = {
+      id: crypto.randomUUID(),
+      name,
+      slides,
+      settings,
+      updatedAt: new Date(),
+    };
+
+    // Check if project with same name exists, if so update it
+    const existingIndex = savedProjects.findIndex(p => p.name === name);
+    let newProjects = [...savedProjects];
+
+    if (existingIndex >= 0) {
+      if (!window.confirm(`Le projet "${name}" existe déjà. Voulez-vous l'écraser ?`)) {
+        return;
+      }
+      newProjects[existingIndex] = project;
+    } else {
+      newProjects.push(project);
+    }
+
+    setSavedProjects(newProjects);
+    setCurrentProjectName(name);
+    alert('✅ Projet sauvegardé avec succès !');
+  }, [slides, settings, savedProjects, setSavedProjects, setCurrentProjectName]);
+
+  /**
+   * Loads a project
+   */
+  const loadProject = useCallback((project: SavedProject) => {
+    if (slides.length > 0 && !window.confirm('Charger ce projet remplacera votre travail actuel. Continuer ?')) {
+      return;
+    }
+
+    setSlides(project.slides);
+    setSettings(project.settings);
+    setCurrentProjectName(project.name);
+  }, [slides, setSlides, setSettings, setCurrentProjectName]);
+
+  /**
+   * Deletes a project
+   */
+  const deleteProject = useCallback((id: string) => {
+    if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
+      return;
+    }
+    setSavedProjects(savedProjects.filter(p => p.id !== id));
+  }, [savedProjects, setSavedProjects]);
+
+  /**
+   * Starts a new project
+   */
+  const startNewProject = useCallback(() => {
+    if (slides.length > 0 && !window.confirm('Voulez-vous commencer un nouveau projet ? Les modifications non sauvegardées seront perdues.')) {
+      return;
+    }
+    setSlides([]);
+    setSettings(DEFAULT_SETTINGS);
+    setCurrentProjectName('Nouveau Projet');
+  }, [slides, setSlides, setSettings, setCurrentProjectName]);
+
+  /**
    * Resets all data to defaults
    * Clears localStorage and reloads
    */
@@ -192,6 +277,12 @@ export function useCarouselState(): UseCarouselStateReturn {
     reorderSlides,
     settings,
     updateSettings,
+    savedProjects,
+    currentProjectName,
+    saveProject,
+    loadProject,
+    deleteProject,
+    startNewProject,
     resetAll,
   };
 }

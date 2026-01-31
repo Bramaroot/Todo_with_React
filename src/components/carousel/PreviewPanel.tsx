@@ -116,7 +116,7 @@ export const PreviewPanel = ({
             slide={currentSlide}
             settings={settings}
             format={previewFormat}
-            includeProfile={currentIndex === 0}
+            includeProfile={true}
             slideNumber={currentIndex + 1}
             totalSlides={slides.length}
           />

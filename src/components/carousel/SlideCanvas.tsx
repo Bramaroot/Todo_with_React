@@ -6,7 +6,7 @@
  */
 
 import { forwardRef } from 'react';
-import { Globe } from 'lucide-react';
+import { Globe, Heart, UserPlus, Quote } from 'lucide-react';
 import { parseMarkdown } from '../../utils/markdownParser';
 import { TECHNOLOGIES } from './TechStackSelector';
 import type {
@@ -81,6 +81,20 @@ export const SlideCanvas = forwardRef<HTMLDivElement, SlideCanvasProps>(
         backgroundImage: `url("${cyberGridSVG}")`,
         backgroundSize: '60px 60px',
       };
+    };
+
+    // Font Size Mappings
+    const TITLE_SIZES = {
+      small: '48px',
+      medium: '58px',
+      large: '68px',
+      xl: '88px',
+    };
+
+    const CONTENT_SIZES = {
+      small: '32px',
+      medium: '42px',
+      large: '52px',
     };
 
     return (
@@ -170,13 +184,10 @@ export const SlideCanvas = forwardRef<HTMLDivElement, SlideCanvasProps>(
           {slide.logo && (
             <div
               style={{
-                width: '80px',
-                height: '80px',
-                borderRadius: '50%',
+                width: '240px',
+                height: '240px',
                 overflow: 'hidden',
-                border: `4px solid ${settings.accentColor}`,
-                boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
-                background: '#FFFFFF',
+                transform: 'rotate(-5deg)',
               }}
             >
               <img
@@ -196,10 +207,10 @@ export const SlideCanvas = forwardRef<HTMLDivElement, SlideCanvasProps>(
             <div
               style={{
                 display: 'flex',
-                gap: '8px',
+                gap: '32px',
                 flexWrap: 'wrap',
                 justifyContent: 'flex-end',
-                maxWidth: '200px',
+                maxWidth: '800px',
               }}
             >
               {slide.techStack.map((techId) => {
@@ -209,16 +220,13 @@ export const SlideCanvas = forwardRef<HTMLDivElement, SlideCanvasProps>(
                   <div
                     key={techId}
                     style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '12px',
-                      background: '#FFFFFF',
-                      border: `3px solid ${settings.accentColor}`,
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                      width: '144px',
+                      height: '144px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       padding: '8px',
+                      transform: 'rotate(5deg)',
                     }}
                   >
                     <div
@@ -243,38 +251,245 @@ export const SlideCanvas = forwardRef<HTMLDivElement, SlideCanvasProps>(
             padding: includeProfile ? '80px 60px 220px 60px' : '100px 60px 80px 60px',
           }}
         >
-          {/* Title */}
-          <h1
-            style={{
-              fontSize: '68px',
-              fontWeight: '700',
-              color: '#FFFFFF',
-              textAlign: 'left',
-              lineHeight: '1.15',
-              marginBottom: '40px',
-              marginTop: '-10px',
-              paddingLeft: '158px',
-              textShadow: '0 4px 12px rgba(0,0,0,0.7)',
-              wordWrap: 'break-word',
-            }}
-          >
-            {slide.title}
-          </h1>
+          {/* Layout: Classic (Default) */}
+          {(!slide.layout || slide.layout === 'classic') && (
+            <>
+              <h1
+                style={{
+                  fontSize: TITLE_SIZES[slide.titleSize || 'large'],
+                  fontWeight: '700',
+                  color: '#FFFFFF',
+                  textAlign: (slide.titleAlignment || 'left') as any,
+                  lineHeight: '1.15',
+                  marginBottom: '40px',
+                  marginTop: '-10px',
+                  paddingLeft: slide.titleAlignment === 'left' ? '158px' : '0',
+                  textShadow: '0 4px 12px rgba(0,0,0,0.7)',
+                  wordWrap: 'break-word',
+                }}
+              >
+                {slide.title}
+              </h1>
+              <div
+                style={{
+                  flex: 1,
+                  fontSize: CONTENT_SIZES[slide.contentSize || 'medium'],
+                  color: '#FFFFFF',
+                  lineHeight: '1.6',
+                  overflow: 'hidden',
+                  textShadow: '0 2px 6px rgba(0,0,0,0.6)',
+                  textAlign: (slide.contentAlignment || 'left') as any,
+                  whiteSpace: 'pre-wrap',
+                }}
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(slide.content) }}
+              />
+            </>
+          )}
 
-          {/* Content */}
+          {/* Layout: Quote */}
+          {slide.layout === 'quote' && (
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '40px' }}>
+              <Quote
+                style={{
+                  width: '120px',
+                  height: '120px',
+                  color: settings.accentColor,
+                  opacity: 0.8,
+                }}
+              />
+              <div
+                style={{
+                  fontSize: '52px',
+                  fontStyle: 'italic',
+                  fontWeight: '500',
+                  color: '#FFFFFF',
+                  lineHeight: '1.4',
+                }}
+              >
+                "{slide.content}"
+              </div>
+              {slide.quoteAuthor && (
+                <div
+                  style={{
+                    fontSize: '36px',
+                    fontWeight: '700',
+                    color: settings.accentColor,
+                    marginTop: '20px',
+                  }}
+                >
+                  — {slide.quoteAuthor}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Layout: Code */}
+          {slide.layout === 'code' && (
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '30px' }}>
+               <h1
+                style={{
+                  fontSize: TITLE_SIZES[slide.titleSize || 'large'],
+                  fontWeight: '700',
+                  color: '#FFFFFF',
+                  textAlign: (slide.titleAlignment || 'left') as any,
+                  lineHeight: '1.15',
+                  textShadow: '0 4px 12px rgba(0,0,0,0.7)',
+                }}
+              >
+                {slide.title}
+              </h1>
+              <div
+                style={{
+                  background: '#1E1E1E',
+                  borderRadius: '20px',
+                  padding: '40px',
+                  border: `2px solid ${settings.accentColor}`,
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                  fontFamily: 'monospace',
+                  fontSize: '28px',
+                  color: '#D4D4D4',
+                  whiteSpace: 'pre-wrap',
+                  overflow: 'hidden',
+                  position: 'relative',
+                }}
+              >
+                <div style={{ position: 'absolute', top: '15px', left: '20px', display: 'flex', gap: '10px' }}>
+                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#FF5F56' }}></div>
+                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#FFBD2E' }}></div>
+                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27C93F' }}></div>
+                </div>
+                <div style={{ marginTop: '20px' }}>
+                  {slide.codeSnippet || '// No code provided'}
+                </div>
+              </div>
+              <div
+                style={{
+                  fontSize: CONTENT_SIZES[slide.contentSize || 'medium'],
+                  color: '#FFFFFF',
+                  opacity: 0.9,
+                  textAlign: (slide.contentAlignment || 'left') as any,
+                }}
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(slide.content) }}
+              />
+            </div>
+          )}
+
+          {/* Layout: Big Number */}
+          {slide.layout === 'bigNumber' && (
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '20px' }}>
+              <h1
+                style={{
+                  fontSize: TITLE_SIZES[slide.titleSize || 'large'],
+                  fontWeight: '700',
+                  color: '#FFFFFF',
+                  marginBottom: '20px',
+                }}
+              >
+                {slide.title}
+              </h1>
+              <div
+                style={{
+                  fontSize: '240px',
+                  fontWeight: '900',
+                  color: settings.accentColor,
+                  lineHeight: '1',
+                  textShadow: `0 10px 30px ${settings.accentColor}40`,
+                }}
+              >
+                {slide.bigNumber || '0'}
+              </div>
+              <div
+                style={{
+                  fontSize: '48px',
+                  color: '#FFFFFF',
+                  marginTop: '20px',
+                  maxWidth: '80%',
+                }}
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(slide.content) }}
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Like & Subscribe CTA - Positioned Absolutely */}
+        {slide.showCTA && (
           <div
             style={{
-              flex: 1,
-              fontSize: '42px',
-              color: '#FFFFFF',
-              lineHeight: '1.6',
-              overflow: 'hidden',
-              textShadow: '0 2px 6px rgba(0,0,0,0.6)',
-              textAlign: 'justify',
+              position: 'absolute',
+              bottom: '240px', // Just above the footer (which is ~220px high)
+              left: '0',
+              right: '0',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '20px',
+              animation: 'fadeIn 0.5s ease-out',
+              zIndex: 25, // Above footer and content
             }}
-            dangerouslySetInnerHTML={{ __html: parseMarkdown(slide.content) }}
-          />
-        </div>
+          >
+            <div
+              style={{
+                fontSize: '32px',
+                fontWeight: '700',
+                color: '#FFFFFF',
+                textTransform: 'uppercase',
+                letterSpacing: '2px',
+                textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+              }}
+            >
+              Like & Abonne-toi
+            </div>
+            <div style={{ display: 'flex', gap: '40px' }}>
+              {/* Like Icon */}
+              <div
+                style={{
+                  width: '100px',
+                  height: '100px',
+                  borderRadius: '50%',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  border: `3px solid ${settings.accentColor}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+                }}
+              >
+                <Heart
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    color: settings.accentColor,
+                    fill: settings.accentColor,
+                  }}
+                />
+              </div>
+              {/* Subscribe Icon */}
+              <div
+                style={{
+                  width: '100px',
+                  height: '100px',
+                  borderRadius: '50%',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  border: `3px solid ${settings.accentColor}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+                }}
+              >
+                <UserPlus
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    color: settings.accentColor,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Profile Footer (if first slide) - Inspired by SahEco design */}
         {includeProfile && (

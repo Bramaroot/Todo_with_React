@@ -107,7 +107,7 @@ export async function exportToPNG(
 
   for (let i = 0; i < slides.length; i++) {
     const slide = slides[i];
-    const includeProfile = i === 0;
+    const includeProfile = true;
 
     try {
       console.log(`Capturing slide ${i + 1}/${slides.length}...`);
@@ -165,7 +165,7 @@ export async function exportToPDF(
 
   for (let i = 0; i < slides.length; i++) {
     const slide = slides[i];
-    const includeProfile = i === 0;
+    const includeProfile = true;
 
     try {
       console.log(`Capturing slide ${i + 1}/${slides.length} for PDF...`);

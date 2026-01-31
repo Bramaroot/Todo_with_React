@@ -19,7 +19,26 @@ export interface CarouselSlide {
   content: string; // markdown text
   logo?: string; // base64 custom logo
   techStack?: string[]; // Array of tech names (html, css, js, react, etc.)
+  titleAlignment?: 'left' | 'center' | 'right';
+  contentAlignment?: 'left' | 'center' | 'right' | 'justify';
+  titleSize?: 'small' | 'medium' | 'large' | 'xl';
+  contentSize?: 'small' | 'medium' | 'large';
+  showCTA?: boolean; // Show Like & Subscribe CTA
+  // Layout specific fields
+  layout?: 'classic' | 'quote' | 'code' | 'bigNumber';
+  codeSnippet?: string; // For code layout
+  codeLanguage?: string; // For code layout
+  bigNumber?: string; // For bigNumber layout
+  quoteAuthor?: string; // For quote layout
   createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface SavedProject {
+  id: string;
+  name: string;
+  slides: CarouselSlide[];
+  settings: CarouselGlobalSettings;
   updatedAt: Date;
 }
 
@@ -87,6 +106,15 @@ export const DEFAULT_SLIDE: Omit<CarouselSlide, 'id'> = {
   content: '',
   logo: '',
   techStack: [],
+  titleAlignment: 'left',
+  contentAlignment: 'left',
+  titleSize: 'large',
+  contentSize: 'medium',
+  showCTA: false,
+  layout: 'classic',
+  codeSnippet: 'console.log("Hello World");',
+  bigNumber: '50%',
+  quoteAuthor: '',
   createdAt: new Date(),
   updatedAt: new Date(),
 };

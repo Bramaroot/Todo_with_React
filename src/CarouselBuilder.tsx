@@ -10,6 +10,7 @@ import { Layers, Plus, ChevronRight, ChevronLeft, RotateCcw } from 'lucide-react
 import { ProfileSection } from './components/carousel/ProfileSection';
 import { SlidesAccordion } from './components/carousel/SlidesAccordion';
 import { GlobalSettingsPanel } from './components/carousel/GlobalSettingsPanel';
+import { ProjectsManager } from './components/carousel/ProjectsManager';
 import { PreviewPanel } from './components/carousel/PreviewPanel';
 import { ExportPanel } from './components/carousel/ExportPanel';
 import { useCarouselState } from './hooks/useCarouselState';
@@ -27,6 +28,12 @@ function CarouselBuilder() {
     settings,
     updateSettings,
     resetAll,
+    savedProjects,
+    currentProjectName,
+    saveProject,
+    loadProject,
+    deleteProject,
+    startNewProject,
   } = useCarouselState();
 
   const [showSettings, setShowSettings] = useState(false);
@@ -72,6 +79,16 @@ function CarouselBuilder() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 overflow-hidden">
           {/* Left: Editor Section (Scrollable) */}
           <div className="flex flex-col gap-6 overflow-auto pr-2">
+            {/* Project Manager */}
+            <ProjectsManager
+              currentProjectName={currentProjectName}
+              savedProjects={savedProjects}
+              onSave={saveProject}
+              onLoad={loadProject}
+              onDelete={deleteProject}
+              onNew={startNewProject}
+            />
+
             {/* Profile Section */}
             <ProfileSection profile={profile} onUpdate={updateProfile} />
 
