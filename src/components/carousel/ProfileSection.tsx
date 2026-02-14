@@ -162,6 +162,3 @@ export const ProfileSection = ({ profile, onUpdate }: ProfileSectionProps) => {
     </div>
   );
 };
-    </div>
-  );
-};

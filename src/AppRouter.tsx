@@ -43,14 +43,14 @@ function AppRouter() {
               className="flex items-center gap-3 cursor-pointer group"
               onClick={() => setCurrentPage('home')}
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center font-black text-[hsl(var(--primary-foreground))] group-hover:scale-110 transition-transform">
+              <div className="w-9 h-9 rounded-xl bg-[hsl(var(--primary))] flex items-center justify-center font-black text-black group-hover:scale-110 transition-transform shadow-lg">
                 H
               </div>
               <div className="flex flex-col">
-                <h1 className="text-lg font-black tracking-tight leading-none gradient-text">
+                <h1 className="text-lg font-black tracking-tight leading-none text-white">
                   HYPE TOOLS
                 </h1>
-                <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">
+                <span className="text-[10px] uppercase tracking-widest text-[hsl(var(--primary))] font-black">
                   Creative Suite
                 </span>
               </div>
@@ -62,19 +62,19 @@ function AppRouter() {
                 <button
                   key={item.id}
                   onClick={() => setCurrentPage(item.id)}
-                  className={`px-4 py-2 rounded-xl font-semibold text-sm transition-all flex items-center gap-2 ${
+                  className={`px-4 py-2 rounded-lg font-bold text-[10px] uppercase tracking-wider transition-all flex items-center gap-2 ${
                     currentPage === item.id
-                      ? 'bg-[hsl(var(--primary)/0.1)] text-[hsl(var(--primary))]'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--muted)/0.5)]'
+                      ? 'bg-[hsl(var(--primary))/0.1] text-[hsl(var(--primary))]'
+                      : 'text-muted-foreground hover:text-white hover:bg-white/5'
                   }`}
                 >
-                  <item.icon className="w-4 h-4" />
+                  <item.icon className="w-3.5 h-3.5" />
                   <span>{item.name}</span>
                 </button>
               ))}
-              <div className="h-6 w-px bg-[hsl(var(--border))] mx-2" />
-              <button className="px-4 py-2 bg-[hsl(var(--primary))] text-black text-sm font-bold rounded-xl flex items-center gap-2 hover:scale-105 transition-all">
-                <Rocket className="w-4 h-4" />
+              <div className="h-6 w-px bg-white/5 mx-2" />
+              <button className="px-4 py-2 bg-[hsl(var(--primary))] text-black text-[10px] font-black uppercase tracking-widest rounded-lg flex items-center gap-2 hover:scale-105 transition-all shadow-lg">
+                <Rocket className="w-3.5 h-3.5" />
                 Go Pro
               </button>
             </div>
