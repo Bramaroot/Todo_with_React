@@ -194,7 +194,7 @@ export function CharlieOscarEditor() {
   };
 
   // Calculate preview scale
-  const previewScale = Math.min(480 / CHARLIE_OSCAR_DIMENSIONS.width, 0.45);
+  const previewScale = Math.min(324 / CHARLIE_OSCAR_DIMENSIONS.width, 0.3);
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 h-full">
