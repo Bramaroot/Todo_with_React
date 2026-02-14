@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Layers, Home, Menu, X, Rocket } from 'lucide-react';
+import { Layers, Home, Menu, X } from 'lucide-react';
 import LandingPage from './components/LandingPage';
 import CarouselBuilder from './CarouselBuilder';
 
@@ -72,11 +72,6 @@ function AppRouter() {
                   <span>{item.name}</span>
                 </button>
               ))}
-              <div className="h-6 w-px bg-white/5 mx-2" />
-              <button className="px-4 py-2 bg-[hsl(var(--primary))] text-black text-[10px] font-black uppercase tracking-widest rounded-lg flex items-center gap-2 hover:scale-105 transition-all shadow-lg">
-                <Rocket className="w-3.5 h-3.5" />
-                Go Pro
-              </button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -110,10 +105,6 @@ function AppRouter() {
                   <span>{item.name}</span>
                 </button>
               ))}
-              <button className="w-full mt-4 px-4 py-4 bg-gradient-primary text-black font-black rounded-xl flex items-center justify-center gap-2">
-                <Rocket className="w-5 h-5" />
-                GO PRO
-              </button>
             </div>
           </div>
         )}
