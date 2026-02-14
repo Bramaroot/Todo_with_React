@@ -212,7 +212,6 @@ export const SlideAccordionItem = ({
             value={slide.logo || ''}
             onChange={(url) => onUpdate({ logo: url })}
             aspectRatio="1/1"
-            isRound={true}
           />
 
           {/* Tech Stack Selector (Pre-built logos) */}

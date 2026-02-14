@@ -154,7 +154,7 @@ export async function exportToPDF(
   console.log(`📄 Starting PDF export for ${slides.length} slides...`);
 
   const { width, height } = format;
-  const orientation = format.aspectRatio === '16:9' ? 'landscape' : 'portrait';
+  const orientation = (format.aspectRatio as string) === '16:9' ? 'landscape' : 'portrait';
 
   // Create PDF document
   const pdf = new jsPDF({

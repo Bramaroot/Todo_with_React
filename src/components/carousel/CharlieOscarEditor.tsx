@@ -15,7 +15,6 @@ import {
   Type,
   Settings,
   Palette,
-  User,
   FileText,
   Quote,
   Hash,
