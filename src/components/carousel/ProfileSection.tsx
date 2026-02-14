@@ -35,73 +35,74 @@ export const ProfileSection = ({ profile, onUpdate }: ProfileSectionProps) => {
   }
 
   return (
-    <div className="p-6 bg-hype-card rounded-xl border border-[hsl(var(--border))] shadow-hype animate-fadeIn">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-          <User className="w-5 h-5 text-[hsl(var(--hype-yellow))]" />
+    <div className="p-4 bg-hype-card rounded-xl border border-[hsl(var(--border))] shadow-hype animate-fadeIn">
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-base font-bold text-foreground flex items-center gap-2 uppercase tracking-wide">
+          <User className="w-4 h-4 text-[hsl(var(--hype-yellow))]" />
           Profil
         </h2>
         {!isEditing && (
           <button
             onClick={() => setIsEditing(true)}
-            className="px-3 py-1.5 bg-[hsl(var(--hype-blue))] hover:bg-[hsl(var(--hype-neonBlue))] text-white rounded-lg text-sm flex items-center gap-2 transition-all duration-300 transform hover:scale-105"
+            className="px-2.5 py-1 bg-[hsl(var(--hype-blue))] hover:bg-[hsl(var(--hype-neonBlue))] text-white rounded font-bold text-[10px] flex items-center gap-1.5 transition-all uppercase tracking-wider"
           >
-            <Pencil className="w-4 h-4" />
+            <Pencil className="w-3 h-3" />
             Modifier
           </button>
         )}
       </div>
 
       {isEditing ? (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3">
           {/* Profile Image Upload */}
-          <ImageUploader
-            label="Photo de profil"
-            value={tempProfile.profileImage}
-            onChange={(url) =>
-              setTempProfile({ ...tempProfile, profileImage: url })
-            }
-            isRound
-          />
-
-          {/* Name Input */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-foreground">
-              Nom
-            </label>
-            <input
-              type="text"
-              value={tempProfile.name}
-              onChange={(e) =>
-                setTempProfile({ ...tempProfile, name: e.target.value })
+          <div className="max-w-[100px]">
+            <ImageUploader
+              label="Photo"
+              value={tempProfile.profileImage}
+              onChange={(url) =>
+                setTempProfile({ ...tempProfile, profileImage: url })
               }
-              placeholder="Votre nom complet"
-              maxLength={50}
-              className="px-4 py-2 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[hsl(var(--hype-blue))] transition-all duration-300"
             />
           </div>
 
-          {/* Position Input */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-foreground">
-              Poste / Titre
-            </label>
-            <input
-              type="text"
-              value={tempProfile.position}
-              onChange={(e) =>
-                setTempProfile({ ...tempProfile, position: e.target.value })
-              }
-              placeholder="Votre fonction professionnelle"
-              maxLength={60}
-              className="px-4 py-2 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[hsl(var(--hype-blue))] transition-all duration-300"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {/* Name Input */}
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-bold text-muted-foreground uppercase">
+                Nom
+              </label>
+              <input
+                type="text"
+                value={tempProfile.name}
+                onChange={(e) =>
+                  setTempProfile({ ...tempProfile, name: e.target.value })
+                }
+                placeholder="Votre nom"
+                className="px-3 py-1.5 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-[hsl(var(--hype-blue))]"
+              />
+            </div>
+
+            {/* Position Input */}
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-bold text-muted-foreground uppercase">
+                Poste
+              </label>
+              <input
+                type="text"
+                value={tempProfile.position}
+                onChange={(e) =>
+                  setTempProfile({ ...tempProfile, position: e.target.value })
+                }
+                placeholder="Votre titre"
+                className="px-3 py-1.5 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-[hsl(var(--hype-blue))]"
+              />
+            </div>
           </div>
 
           {/* Portfolio URL Input */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-foreground">
-              Portfolio / Site Web
+          <div className="flex flex-col gap-1">
+            <label className="text-[10px] font-bold text-muted-foreground uppercase">
+              Portfolio
             </label>
             <input
               type="text"
@@ -109,56 +110,58 @@ export const ProfileSection = ({ profile, onUpdate }: ProfileSectionProps) => {
               onChange={(e) =>
                 setTempProfile({ ...tempProfile, portfolio: e.target.value })
               }
-              placeholder="nouhou-ibrahim.com"
-              maxLength={50}
-              className="px-4 py-2 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[hsl(var(--hype-blue))] transition-all duration-300 font-mono"
+              placeholder="votre-site.com"
+              className="px-3 py-1.5 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-xs text-foreground font-mono"
             />
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-2">
+          <div className="flex gap-2 pt-1">
             <button
               onClick={handleSave}
-              className="flex-1 px-4 py-2 bg-[hsl(var(--hype-blue))] hover:bg-[hsl(var(--hype-neonBlue))] text-white rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-300 transform hover:scale-105"
+              className="flex-1 px-3 py-1.5 bg-[hsl(var(--hype-blue))] hover:bg-[hsl(var(--hype-neonBlue))] text-white rounded font-bold text-[10px] flex items-center justify-center gap-1.5 uppercase"
             >
-              <Save className="w-4 h-4" />
-              Sauvegarder
+              <Save className="w-3 h-3" />
+              Enregistrer
             </button>
             <button
               onClick={handleCancel}
-              className="flex-1 px-4 py-2 bg-[hsl(var(--muted))] hover:bg-[hsl(var(--muted))]/80 text-foreground rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-300"
+              className="flex-1 px-3 py-1.5 bg-[hsl(var(--muted))] hover:bg-[hsl(var(--muted))]/80 text-foreground rounded font-bold text-[10px] flex items-center justify-center gap-1.5 uppercase"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3 h-3" />
               Annuler
             </button>
           </div>
         </div>
       ) : (
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {/* Profile Image Display */}
           {profile.profileImage ? (
             <img
               src={profile.profileImage}
               alt={profile.name}
-              className="w-20 h-20 rounded-full object-cover border-4 border-[hsl(var(--hype-blue))] shadow-lg"
+              className="w-12 h-12 rounded-full object-cover border-2 border-[hsl(var(--hype-blue))]"
             />
           ) : (
-            <div className="w-20 h-20 rounded-full bg-[hsl(var(--hype-blue))] flex items-center justify-center text-white text-2xl font-bold border-4 border-[hsl(var(--hype-neonBlue))] shadow-lg">
+            <div className="w-12 h-12 rounded-full bg-[hsl(var(--hype-blue))] flex items-center justify-center text-white text-lg font-bold">
               {profile.name.charAt(0).toUpperCase()}
             </div>
           )}
 
           {/* Profile Info Display */}
           <div className="flex-1">
-            <h3 className="text-2xl font-bold text-foreground">
+            <h3 className="text-base font-bold text-foreground leading-tight">
               {profile.name}
             </h3>
-            <p className="text-lg text-[hsl(var(--hype-yellow))] font-medium">
+            <p className="text-xs text-[hsl(var(--hype-yellow))] font-semibold">
               {profile.position}
             </p>
           </div>
         </div>
       )}
+    </div>
+  );
+};
     </div>
   );
 };

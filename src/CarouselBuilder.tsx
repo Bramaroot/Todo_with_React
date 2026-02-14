@@ -61,48 +61,45 @@ function CarouselBuilder() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,hsl(var(--primary)/0.05),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,hsl(var(--secondary)/0.05),transparent_50%)]" />
 
-      <div className="flex-1 flex flex-col gap-6 p-4 md:p-8 relative z-10">
+      <div className="flex-1 flex flex-col gap-4 p-3 md:p-5 relative z-10">
         {/* Header */}
-        <div className="text-center mb-4">
-          <h1 className="text-5xl font-black gradient-text mb-3 flex items-center justify-center gap-4">
-            <Layers className="w-12 h-12 text-[hsl(var(--primary))]" />
+        <div className="text-center mb-1">
+          <h1 className="text-3xl font-black gradient-text mb-1 flex items-center justify-center gap-3">
+            <Layers className="w-8 h-8 text-[hsl(var(--primary))]" />
             Carousel Builder
           </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-sm max-w-xl mx-auto">
             Créez des carrousels narratifs et impactants. 
-            Utilisez le modèle <strong>Classic</strong> pour un style cyber-tech ou <strong>Charlie Oscar</strong> pour le minimalisme.
           </p>
         </div>
 
         {/* Model Selector */}
-        <div className="flex justify-center mb-2">
-          <div className="inline-flex p-1.5 glass-card rounded-2xl gap-2">
+        <div className="flex justify-center mb-1">
+          <div className="inline-flex p-1 glass-card rounded-xl gap-1.5">
             <button
               onClick={() => setSelectedModel('classic')}
-              className={`flex items-center gap-3 px-6 py-3 rounded-xl font-bold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold transition-all text-xs ${
                 selectedModel === 'classic'
                   ? 'bg-[hsl(var(--primary))] text-black'
                   : 'text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--muted)/0.5)]'
               }`}
             >
-              <Grid3X3 className="w-5 h-5" />
+              <Grid3X3 className="w-4 h-4" />
               <div className="text-left">
-                <div className="text-sm font-bold">Classic</div>
-                <div className="text-xs opacity-80">Dark cyber theme</div>
+                <div className="font-bold">Classic</div>
               </div>
             </button>
             <button
               onClick={() => setSelectedModel('charlie-oscar')}
-              className={`flex items-center gap-3 px-6 py-3 rounded-xl font-bold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold transition-all text-xs ${
                 selectedModel === 'charlie-oscar'
                   ? 'bg-[hsl(var(--primary))] text-black'
                   : 'text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--muted)/0.5)]'
               }`}
             >
-              <FileText className="w-5 h-5" />
+              <FileText className="w-4 h-4" />
               <div className="text-left">
-                <div className="text-sm font-bold">Modern Simple</div>
-                <div className="text-xs opacity-80">Design épuré & pro</div>
+                <div className="font-bold">Modern Simple</div>
               </div>
             </button>
           </div>
@@ -116,18 +113,22 @@ function CarouselBuilder() {
           /* Classic Model Editor */
           <>
             {/* Top Row - Settings & Export (Full Width) */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {/* Global Settings */}
-              <GlobalSettingsPanel settings={settings} onChange={updateSettings} />
+              <div className="text-xs">
+                <GlobalSettingsPanel settings={settings} onChange={updateSettings} />
+              </div>
 
               {/* Export Panel */}
-              <ExportPanel profile={profile} slides={slides} settings={settings} />
+              <div className="text-xs">
+                <ExportPanel profile={profile} slides={slides} settings={settings} />
+              </div>
             </div>
 
             {/* Bottom Row - Editor (50%) | Preview (50%) */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1 overflow-hidden">
               {/* Left: Editor Section (Scrollable) */}
-              <div className="flex flex-col gap-6 overflow-auto pr-2">
+              <div className="flex flex-col gap-4 overflow-auto pr-2">
                 {/* Project Manager */}
                 <ProjectsManager
                   currentProjectName={currentProjectName}
@@ -142,12 +143,12 @@ function CarouselBuilder() {
                 <ProfileSection profile={profile} onUpdate={updateProfile} />
 
                 {/* Slides Section */}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-3">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-bold text-foreground">
+                    <h2 className="text-lg font-bold text-foreground uppercase tracking-tight">
                       Slides ({slides.length}/10)
                     </h2>
-                    <div className="flex gap-2">
+                    <div className="flex gap-1.5">
                       {slides.length > 0 && slides[0].image && (
                         <button
                           onClick={() => {
@@ -158,18 +159,18 @@ function CarouselBuilder() {
                               }
                             });
                           }}
-                          className="px-3 py-2 bg-[hsl(var(--hype-yellow))] hover:bg-[hsl(var(--hype-yellow))]/80 text-black rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 text-sm"
-                          title="Appliquer l'image de la slide 1 à toutes"
+                          className="px-2 py-1 bg-[hsl(var(--hype-yellow))] hover:bg-[hsl(var(--hype-yellow))]/80 text-black rounded font-bold text-[10px] uppercase"
+                          title="Copier image à toutes"
                         >
-                          Copier image à toutes
+                          Copier image
                         </button>
                       )}
                       <button
                         onClick={addSlide}
                         disabled={!canAddSlide}
-                        className="px-4 py-2 bg-[hsl(var(--hype-blue))] hover:bg-[hsl(var(--hype-neonBlue))] text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2 shadow-lg"
+                        className="px-3 py-1 bg-[hsl(var(--hype-blue))] hover:bg-[hsl(var(--hype-neonBlue))] text-white rounded font-bold flex items-center gap-1 shadow-lg text-xs"
                       >
-                        <Plus className="w-5 h-5" />
+                        <Plus className="w-3.5 h-3.5" />
                         Ajouter
                       </button>
                     </div>

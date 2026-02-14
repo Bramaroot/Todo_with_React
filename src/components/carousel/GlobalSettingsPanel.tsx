@@ -23,50 +23,50 @@ export const GlobalSettingsPanel = ({
   };
 
   return (
-    <div className="p-4 bg-hype-card rounded-xl border border-[hsl(var(--border))] shadow-hype flex flex-col gap-3">
-      <h2 className="text-base font-bold text-foreground flex items-center gap-2">
-        <Settings className="w-4 h-4 text-[hsl(var(--hype-yellow))]" />
-        Personnalisation
+    <div className="p-3 bg-hype-card rounded-xl border border-[hsl(var(--border))] shadow-hype flex flex-col gap-2">
+      <h2 className="text-[10px] font-bold text-muted-foreground flex items-center gap-1.5 uppercase tracking-widest">
+        <Settings className="w-3.5 h-3.5" />
+        Configuration Globale
       </h2>
 
       {/* Colors - Compact */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-1 text-xs font-semibold text-foreground">
-          <Palette className="w-3 h-3" />
-          Couleurs
+      <div className="flex flex-col gap-1.5">
+        <div className="flex items-center gap-1 text-[9px] font-bold text-muted-foreground uppercase">
+          <Palette className="w-2.5 h-2.5" />
+          Palette
         </div>
 
         {/* Primary & Accent on same row */}
         <div className="grid grid-cols-2 gap-2">
-          <div className="flex gap-1">
+          <div className="flex gap-1 items-center">
             <input
               type="color"
               value={settings.primaryColor}
               onChange={(e) => handleChange('primaryColor', e.target.value)}
-              className="w-8 h-8 rounded border border-[hsl(var(--border))] cursor-pointer"
+              className="w-6 h-6 rounded-sm border border-[hsl(var(--border))] cursor-pointer overflow-hidden"
               title="Primaire"
             />
             <input
               type="text"
               value={settings.primaryColor}
               onChange={(e) => handleChange('primaryColor', e.target.value)}
-              className="flex-1 px-2 py-1 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-foreground font-mono text-xs"
+              className="flex-1 px-1.5 py-1 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-foreground font-mono text-[9px]"
               placeholder="Primaire"
             />
           </div>
-          <div className="flex gap-1">
+          <div className="flex gap-1 items-center">
             <input
               type="color"
               value={settings.accentColor}
               onChange={(e) => handleChange('accentColor', e.target.value)}
-              className="w-8 h-8 rounded border border-[hsl(var(--border))] cursor-pointer"
+              className="w-6 h-6 rounded-sm border border-[hsl(var(--border))] cursor-pointer overflow-hidden"
               title="Accent"
             />
             <input
               type="text"
               value={settings.accentColor}
               onChange={(e) => handleChange('accentColor', e.target.value)}
-              className="flex-1 px-2 py-1 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-foreground font-mono text-xs"
+              className="flex-1 px-1.5 py-1 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-foreground font-mono text-[9px]"
               placeholder="Accent"
             />
           </div>
@@ -74,10 +74,10 @@ export const GlobalSettingsPanel = ({
       </div>
 
       {/* Background - Compact */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-1 text-xs font-semibold text-foreground">
-          <ImageIcon className="w-3 h-3" />
-          Arrière-plan
+      <div className="flex flex-col gap-1.5">
+        <div className="flex items-center gap-1 text-[9px] font-bold text-muted-foreground uppercase">
+          <ImageIcon className="w-2.5 h-2.5" />
+          Fond
         </div>
 
         {/* Background Type Selector */}
@@ -86,65 +86,67 @@ export const GlobalSettingsPanel = ({
             <button
               key={type}
               onClick={() => handleChange('backgroundType', type)}
-              className={`flex-1 px-2 py-1 rounded border transition-all text-xs ${
+              className={`flex-1 px-1.5 py-1 rounded border transition-all text-[9px] font-bold uppercase tracking-tighter ${
                 settings.backgroundType === type
-                  ? 'border-[hsl(var(--hype-blue))] bg-[hsl(var(--hype-blue))]/10 text-foreground font-medium'
+                  ? 'border-[hsl(var(--primary))] bg-[hsl(var(--primary))/0.1] text-[hsl(var(--primary))]'
                   : 'border-[hsl(var(--border))] text-muted-foreground'
               }`}
             >
               {type === 'solid' && 'Uni'}
               {type === 'image' && 'Image'}
-              {type === 'gradient' && 'Dégradé'}
+              {type === 'gradient' && 'Degré'}
             </button>
           ))}
         </div>
 
         {/* Type-Specific Controls */}
         {settings.backgroundType === 'solid' && (
-          <div className="flex gap-1">
+          <div className="flex gap-1 items-center">
             <input
               type="color"
               value={settings.backgroundColor || '#0A0A0A'}
               onChange={(e) => handleChange('backgroundColor', e.target.value)}
-              className="w-8 h-8 rounded border border-[hsl(var(--border))] cursor-pointer"
+              className="w-6 h-6 rounded-sm border border-[hsl(var(--border))] cursor-pointer overflow-hidden"
             />
             <input
               type="text"
               value={settings.backgroundColor || '#0A0A0A'}
               onChange={(e) => handleChange('backgroundColor', e.target.value)}
-              className="flex-1 px-2 py-1 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-foreground font-mono text-xs"
+              className="flex-1 px-1.5 py-1 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-foreground font-mono text-[9px]"
             />
           </div>
         )}
 
         {settings.backgroundType === 'image' && (
-          <ImageUploader
-            label=""
-            value={settings.backgroundImage || ''}
-            onChange={(url) => handleChange('backgroundImage', url)}
-            aspectRatio="1/1"
-          />
+          <div className="max-w-[80px]">
+            <ImageUploader
+              label=""
+              value={settings.backgroundImage || ''}
+              onChange={(url) => handleChange('backgroundImage', url)}
+              aspectRatio="1/1"
+            />
+          </div>
         )}
 
         {settings.backgroundType === 'gradient' && (
           <div className="flex flex-col gap-1">
-            <div className="flex gap-1">
+            <div className="flex gap-1 items-center">
               <input
                 type="color"
                 value={settings.gradientStart || '#18636B'}
                 onChange={(e) => handleChange('gradientStart', e.target.value)}
-                className="w-8 h-8 rounded border border-[hsl(var(--border))] cursor-pointer"
+                className="w-6 h-6 rounded-sm border border-[hsl(var(--border))] cursor-pointer overflow-hidden"
               />
               <input
                 type="color"
                 value={settings.gradientEnd || '#F9C74C'}
                 onChange={(e) => handleChange('gradientEnd', e.target.value)}
-                className="w-8 h-8 rounded border border-[hsl(var(--border))] cursor-pointer"
+                className="w-6 h-6 rounded-sm border border-[hsl(var(--border))] cursor-pointer overflow-hidden"
               />
               <select
                 value={settings.gradientDirection || 'to-br'}
                 onChange={(e) => handleChange('gradientDirection', e.target.value as any)}
-                className="flex-1 px-2 py-1 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-foreground text-xs"
+                className="flex-1 px-1 py-0.5 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-foreground text-[9px]"
               >
                 <option value="to-r">→</option>
                 <option value="to-br">↘</option>

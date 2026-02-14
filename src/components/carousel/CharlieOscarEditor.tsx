@@ -203,14 +203,14 @@ export function CharlieOscarEditor() {
         {/* Branding Toggle */}
         <button
           onClick={() => setShowBranding(!showBranding)}
-          className="px-4 py-3 bg-[hsl(var(--hype-card))] border border-[hsl(var(--border))] rounded-xl flex items-center justify-between hover:bg-[hsl(var(--muted)/0.3)] transition-colors"
+          className="px-3 py-2 bg-[hsl(var(--hype-card))] border border-[hsl(var(--border))] rounded-lg flex items-center justify-between hover:bg-[hsl(var(--muted)/0.3)] transition-colors"
         >
-          <div className="flex items-center gap-3">
-            <Settings className="w-5 h-5 text-[hsl(var(--hype-yellow))]" />
-            <span className="font-semibold text-foreground">Paramètres Branding</span>
+          <div className="flex items-center gap-2">
+            <Settings className="w-4 h-4 text-[hsl(var(--primary))]" />
+            <span className="text-xs font-bold text-foreground uppercase tracking-tight">Configuration Style</span>
           </div>
           <ChevronRight
-            className={`w-5 h-5 text-muted-foreground transition-transform ${
+            className={`w-4 h-4 text-muted-foreground transition-transform ${
               showBranding ? 'rotate-90' : ''
             }`}
           />
@@ -218,9 +218,9 @@ export function CharlieOscarEditor() {
 
         {/* Branding Panel */}
         {showBranding && (
-          <div className="p-5 bg-[hsl(var(--hype-card))] border border-[hsl(var(--border))] rounded-xl space-y-4">
+          <div className="p-3 bg-[hsl(var(--hype-card))] border border-[hsl(var(--border))] rounded-xl space-y-3">
             {/* Profile Image */}
-            <div className="max-w-[120px]">
+            <div className="max-w-[80px]">
               <ImageUploader
                 label="Photo"
                 value={branding.profileImage}
@@ -230,9 +230,8 @@ export function CharlieOscarEditor() {
             </div>
 
             {/* Username */}
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-foreground flex items-center gap-2">
-                <User className="w-4 h-4 text-[hsl(var(--hype-yellow))]" />
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-bold text-muted-foreground uppercase">
                 Username
               </label>
               <input
@@ -240,7 +239,7 @@ export function CharlieOscarEditor() {
                 value={branding.username}
                 onChange={(e) => updateBranding('username', e.target.value)}
                 placeholder="@username"
-                className="px-4 py-2 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-lg text-foreground"
+                className="px-3 py-1.5 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded text-xs text-foreground"
               />
             </div>
 
@@ -320,48 +319,47 @@ export function CharlieOscarEditor() {
         )}
 
         {/* Slides Navigation */}
-        <div className="p-4 bg-[hsl(var(--hype-card))] border border-[hsl(var(--border))] rounded-xl">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-foreground">
+        <div className="p-3 bg-[hsl(var(--hype-card))] border border-[hsl(var(--border))] rounded-xl">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
               Slides ({slides.length})
             </h3>
-            <div className="flex gap-2">
+            <div className="flex gap-1.5">
               <button
                 onClick={() => addSlide('intro')}
-                className="px-3 py-1.5 text-xs bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors"
+                className="px-2 py-1 text-[9px] font-bold bg-blue-500/20 text-blue-400 rounded uppercase tracking-tighter hover:bg-blue-500/30 transition-colors"
               >
                 + Intro
               </button>
               <button
                 onClick={() => addSlide('content')}
-                className="px-3 py-1.5 text-xs bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors"
+                className="px-2 py-1 text-[9px] font-bold bg-green-500/20 text-green-400 rounded uppercase tracking-tighter hover:bg-green-500/30 transition-colors"
               >
                 + Contenu
               </button>
               <button
                 onClick={() => addSlide('conclusion')}
-                className="px-3 py-1.5 text-xs bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30 transition-colors"
+                className="px-2 py-1 text-[9px] font-bold bg-purple-500/20 text-purple-400 rounded uppercase tracking-tighter hover:bg-purple-500/30 transition-colors"
               >
-                + Conclusion
+                + Fin
               </button>
             </div>
           </div>
 
           {/* Slide Pills */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5">
             {slides.map((slide, index) => (
               <button
                 key={slide.id}
                 onClick={() => setCurrentSlideIndex(index)}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg border transition-all ${
+                className={`flex items-center gap-1.5 px-2 py-1 rounded-md border transition-all ${
                   index === currentSlideIndex
-                    ? 'bg-[hsl(var(--hype-blue))] border-[hsl(var(--hype-blue))] text-white'
-                    : 'bg-[hsl(var(--muted)/0.3)] border-[hsl(var(--border))] text-muted-foreground hover:text-foreground'
+                    ? 'bg-[hsl(var(--primary))] border-[hsl(var(--primary))] text-black'
+                    : 'bg-[hsl(var(--muted)/0.3)] border-[hsl(var(--border))] text-muted-foreground text-[10px]'
                 }`}
               >
-                {getSlideTypeIcon(slide.content.type)}
-                <span className="text-sm font-medium">
-                  {index + 1}. {slide.content.type}
+                <span className="font-bold">
+                  {index + 1}
                 </span>
               </button>
             ))}
