@@ -118,3 +118,123 @@ export const DEFAULT_SLIDE: Omit<CarouselSlide, 'id'> = {
   createdAt: new Date(),
   updatedAt: new Date(),
 };
+
+// ==========================================
+// CHARLIE OSCAR STYLE CAROUSEL TYPES
+// Style minimaliste fond blanc avec header noir
+// ==========================================
+
+export type CharlieOscarSlideType = 'intro' | 'content' | 'conclusion';
+
+export interface CharlieOscarBranding {
+  profileImage: string;
+  username: string; // @username
+  primaryCategory: string;
+  secondaryCategory: string;
+  accentColor: string;
+  copyrightName: string;
+  footerLabel: string;
+}
+
+export interface CharlieOscarIntroContent {
+  type: 'intro';
+  subtitle: string;
+  titleLines: string[];
+  highlightedWord: string;
+}
+
+export interface CharlieOscarContentSlide {
+  type: 'content';
+  number: number;
+  title: string;
+  description: string;
+  screenshot: string;
+  websiteUrl?: string;
+}
+
+export interface CharlieOscarConclusionContent {
+  type: 'conclusion';
+  mainText: string;
+  boldPhrase: string;
+  supportingText: string;
+}
+
+export type CharlieOscarSlideContent =
+  | CharlieOscarIntroContent
+  | CharlieOscarContentSlide
+  | CharlieOscarConclusionContent;
+
+export interface CharlieOscarSlide {
+  id: string;
+  content: CharlieOscarSlideContent;
+}
+
+export interface CharlieOscarProject {
+  id: string;
+  name: string;
+  branding: CharlieOscarBranding;
+  slides: CharlieOscarSlide[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export const DEFAULT_CHARLIE_OSCAR_BRANDING: CharlieOscarBranding = {
+  profileImage: '',
+  username: '@votreusername',
+  primaryCategory: 'Développement Web',
+  secondaryCategory: 'SEO',
+  accentColor: '#F97316',
+  copyrightName: 'Votre Nom',
+  footerLabel: 'CONSEILS WEB',
+};
+
+export const createCharlieOscarIntroSlide = (): CharlieOscarSlide => ({
+  id: crypto.randomUUID(),
+  content: {
+    type: 'intro',
+    subtitle: '3 Choses à Faire',
+    titleLines: ['Avant De', 'Mettre Ton', 'Site Web En'],
+    highlightedWord: 'Ligne',
+  },
+});
+
+export const createCharlieOscarContentSlide = (number: number): CharlieOscarSlide => ({
+  id: crypto.randomUUID(),
+  content: {
+    type: 'content',
+    number,
+    title: `Outil ${number}`,
+    description: 'Description de cet outil et pourquoi il est utile pour votre projet.',
+    screenshot: '',
+    websiteUrl: '',
+  },
+});
+
+export const createCharlieOscarConclusionSlide = (): CharlieOscarSlide => ({
+  id: crypto.randomUUID(),
+  content: {
+    type: 'conclusion',
+    mainText: 'Avoir 100/100 sur ces outils ne garantit pas le succès,',
+    boldPhrase: 'mais ne pas tester garantit l\'échec.',
+    supportingText: 'Utilise ces outils comme un filet de sécurité, pas comme une obsession.',
+  },
+});
+
+export const createDefaultCharlieOscarProject = (): CharlieOscarProject => ({
+  id: crypto.randomUUID(),
+  name: 'Nouveau Carousel',
+  branding: DEFAULT_CHARLIE_OSCAR_BRANDING,
+  slides: [
+    createCharlieOscarIntroSlide(),
+    createCharlieOscarContentSlide(1),
+    createCharlieOscarContentSlide(2),
+    createCharlieOscarConclusionSlide(),
+  ],
+  createdAt: new Date(),
+  updatedAt: new Date(),
+});
+
+export const CHARLIE_OSCAR_DIMENSIONS = {
+  width: 1080,
+  height: 1920,
+};

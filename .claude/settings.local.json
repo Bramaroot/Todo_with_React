@@ -5,7 +5,8 @@
       "Bash(npm run dev:*)",
       "Bash(lsof:*)",
       "Bash(xargs:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Skill(frontend-design)"
     ]
   }
 }

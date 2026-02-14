@@ -2,58 +2,50 @@
 
 @layer theme {
   :root {
-    /* Mode sombre Hype activé par défaut */
-    --background: 220 15% 10%;
-    /* Softer dark blue-grey */
-    --foreground: 220 20% 90%;
+    /* Midnight Creative Theme */
+    --background: 230 25% 7%;
+    --foreground: 210 20% 98%;
 
-    --card: 220 15% 14%;
-    /* Slightly lighter than background */
-    --card-foreground: 220 20% 90%;
+    --card: 230 25% 10%;
+    --card-foreground: 210 20% 98%;
 
-    --popover: 220 15% 14%;
-    --popover-foreground: 220 20% 90%;
+    --popover: 230 25% 10%;
+    --popover-foreground: 210 20% 98%;
 
-    /* Couleurs Hype - Version "Soft" (Desaturated) */
-    --primary: 215 30% 50%;
-    /* Soft slate blue */
-    --primary-foreground: 0 0% 100%;
+    /* Primary: Electric Cyan */
+    --primary: 190 90% 50%;
+    --primary-foreground: 230 25% 7%;
 
-    --secondary: 215 40% 65%;
-    /* Soft sky blue */
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary: Deep Indigo */
+    --secondary: 250 80% 60%;
+    --secondary-foreground: 210 20% 98%;
 
-    /* Jaune doré accent - Muted */
-    --accent: 40 50% 70%;
-    /* Soft beige/yellow */
-    --accent-foreground: 0 0% 0%;
+    /* Accent: Neon Lime */
+    --accent: 85 90% 60%;
+    --accent-foreground: 230 25% 7%;
 
-    --muted: 220 10% 20%;
-    --muted-foreground: 220 10% 60%;
+    --muted: 230 20% 15%;
+    --muted-foreground: 215 15% 65%;
 
-    --destructive: 0 60% 70%;
-    /* Soft red */
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 210 20% 98%;
 
-    --border: 220 10% 20%;
-    --input: 220 10% 20%;
-    --ring: 215 30% 50%;
+    --border: 230 20% 18%;
+    --input: 230 20% 15%;
+    --ring: 190 90% 50%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Custom Hype design tokens - Softened */
-    --hype-blue: 215 30% 50%;
-    /* Soft slate */
-    --hype-darkBlue: 215 30% 35%;
-    --hype-neonBlue: 215 40% 65%;
-    /* Replaces neon with soft blue */
-
-    --hype-yellow: 40 50% 70%;
-    --hype-darkYellow: 40 40% 60%;
-    --hype-lightYellow: 40 40% 80%;
-
-    --hype-black: 220 15% 8%;
-    --hype-darkBlack: 220 15% 5%;
+    /* Custom Design Tokens */
+    --hype-cyan: 190 90% 50%;
+    --hype-indigo: 250 80% 60%;
+    --hype-lime: 85 90% 60%;
+    --hype-purple: 280 80% 65%;
+    
+    --hype-blue: 190 90% 50%;
+    --hype-darkBlue: 230 25% 7%;
+    --hype-neonBlue: 190 90% 60%;
+    --hype-yellow: 85 90% 60%;
   }
 }
 
@@ -66,113 +58,63 @@
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
-/* Animations personnalisées */
+/* Animations */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
-@keyframes pulse {
-
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.02);
-  }
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px hsla(var(--primary) / 0.1); }
+  50% { box-shadow: 0 0 40px hsla(var(--primary) / 0.3); }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-out forwards;
-}
+.animate-fadeIn { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-glow { animation: glow 4s ease-in-out infinite; }
 
-.animate-slideIn {
-  animation: slideIn 0.3s ease-out forwards;
-}
-
-.animate-pulse-slow {
-  animation: pulse 2s ease-in-out infinite;
-}
-
-/* Styles pour les scrollbars personnalisées */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
-}
-
+/* Scrollbars */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--border));
-  border-radius: 4px;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.5); }
+
+/* Utilities */
+.gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground));
-}
-
-/* Amélioration des transitions */
-* {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
-/* Utility classes pour le design Hype */
-.gradient-hype {
-  background: linear-gradient(135deg,
-      hsl(var(--hype-blue)) 0%,
-      hsl(var(--hype-neonBlue)) 50%,
-      hsl(var(--hype-yellow)) 100%);
-}
-
-.gradient-hype-text {
-  background: linear-gradient(135deg,
-      hsl(var(--hype-blue)) 0%,
-      hsl(var(--hype-yellow)) 100%);
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--hype-purple)) 50%, hsl(var(--hype-lime)) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.shadow-hype {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+.glass-card {
+  background: hsla(var(--card) / 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid hsla(var(--border) / 0.5);
 }
 
-.shadow-hype-glow {
-  box-shadow: none;
+.shadow-glow {
+  box-shadow: 0 0 30px hsla(var(--primary) / 0.2);
 }
 
-.border-hype {
-  border-color: hsl(var(--hype-blue));
-}
-
-.bg-hype-card {
-  background: hsl(var(--card));
-  box-shadow: 0 4px 20px hsl(0 0% 0% / 0.3);
-}
+/* Redefining old classes for compatibility if needed */
+.gradient-hype-text { @extend .gradient-text; }
+.shadow-hype { @extend .shadow-glow; }
+.bg-hype-card { @extend .glass-card; }

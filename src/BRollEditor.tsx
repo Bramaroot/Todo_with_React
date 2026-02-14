@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Type, FileText, Sparkles, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Type, Sparkles, ChevronRight, ChevronLeft } from 'lucide-react';
 import { BRollCanvas } from './components/broll/BRollCanvas';
 import { SettingsPanel } from './components/broll/SettingsPanel';
 import { ImageUploader } from './components/broll/ImageUploader';
@@ -52,30 +52,29 @@ function BRollEditor() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col relative overflow-hidden">
-      {/* Background gradient effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--hype-darkBlue))] via-background to-background opacity-50" />
-      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-[hsl(var(--hype-neonBlue))] opacity-5 blur-[120px] rounded-full" />
-      <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-[hsl(var(--hype-yellow))] opacity-5 blur-[120px] rounded-full" />
+      {/* Background gradient effects */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,hsl(var(--secondary)/0.05),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,hsl(var(--primary)/0.05),transparent_50%)]" />
 
       <div className="flex-1 flex flex-col lg:flex-row gap-8 p-4 md:p-8 relative z-10">
         {/* Panneau Principal - Contenu */}
         <div className="flex-1 flex flex-col gap-6">
           {/* Header */}
           <div className="text-center lg:text-left">
-            <h1 className="text-4xl font-bold gradient-hype-text mb-2 flex items-center justify-center lg:justify-start gap-3">
-              <Sparkles className="w-10 h-10 text-[hsl(var(--hype-neonBlue))]" />
-              Générateur B-Roll
+            <h1 className="text-5xl font-black gradient-text mb-3 flex items-center justify-center lg:justify-start gap-4">
+              <Sparkles className="w-12 h-12 text-[hsl(var(--secondary))]" />
+              B-Roll Generator
             </h1>
-            <p className="text-muted-foreground">
-              Créez des visuels professionnels en quelques clics pour TikTok, Instagram et Facebook
+            <p className="text-muted-foreground text-lg">
+              Créez des visuels verticaux impactants pour TikTok et Reels en quelques secondes.
             </p>
           </div>
 
           {/* Formulaire de contenu */}
-          <div className="flex flex-col gap-4 p-6 bg-hype-card rounded-xl border border-[hsl(var(--border))] shadow-hype">
-            <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-              <Type className="w-5 h-5 text-[hsl(var(--hype-yellow))]" />
-              Contenu
+          <div className="flex flex-col gap-4 p-8 glass-card rounded-3xl border border-[hsl(var(--border))/0.5] shadow-glow">
+            <h2 className="text-xl font-bold text-foreground flex items-center gap-2 mb-2">
+              <Type className="w-6 h-6 text-[hsl(var(--primary))]" />
+              Configuration du visuel
             </h2>
 
             {/* Headline */}

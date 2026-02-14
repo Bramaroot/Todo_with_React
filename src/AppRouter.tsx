@@ -1,72 +1,96 @@
 import { useState } from 'react';
-import { CheckSquare, Layers, Menu, X } from 'lucide-react';
-import AppEnhanced from './AppEnhanced';
+import { Layers, Sparkles, Home, Menu, X, Rocket } from 'lucide-react';
+import LandingPage from './components/LandingPage';
 import CarouselBuilder from './CarouselBuilder';
+import BRollEditor from './BRollEditor';
 
-type Page = 'todo' | 'broll';
+type Page = 'home' | 'carousel' | 'broll';
 
 function AppRouter() {
-  const [currentPage, setCurrentPage] = useState<Page>('todo');
+  const [currentPage, setCurrentPage] = useState<Page>('home');
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navigation = [
     {
-      id: 'todo' as Page,
-      name: 'Todo App',
-      icon: CheckSquare,
-      description: 'Gérez vos tâches',
+      id: 'home' as Page,
+      name: 'Accueil',
+      icon: Home,
+    },
+    {
+      id: 'carousel' as Page,
+      name: 'Carrousels',
+      icon: Layers,
     },
     {
       id: 'broll' as Page,
-      name: 'Carousel Builder',
-      icon: Layers,
-      description: 'Créez des carrousels',
+      name: 'B-Roll',
+      icon: Sparkles,
     },
   ];
 
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'carousel':
+        return <CarouselBuilder />;
+      case 'broll':
+        return <BRollEditor />;
+      case 'home':
+      default:
+        return <LandingPage onNavigate={setCurrentPage} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 bg-[hsl(var(--card))]/95 backdrop-blur-sm border-b border-[hsl(var(--border))] shadow-hype">
+      <nav className="sticky top-0 z-50 glass-card border-b border-[hsl(var(--border))/0.5] shadow-glow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[hsl(var(--hype-blue))] to-[hsl(var(--hype-yellow))] flex items-center justify-center font-bold text-white">
+            <div 
+              className="flex items-center gap-3 cursor-pointer group"
+              onClick={() => setCurrentPage('home')}
+            >
+              <div className="w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center font-black text-[hsl(var(--primary-foreground))] group-hover:scale-110 transition-transform">
                 H
               </div>
-              <div className="hidden sm:block">
-                <h1 className="text-lg font-bold gradient-hype-text">
-                  Hype Tools
+              <div className="flex flex-col">
+                <h1 className="text-lg font-black tracking-tight leading-none gradient-text">
+                  HYPE TOOLS
                 </h1>
-                <p className="text-xs text-muted-foreground">
-                  Productivité & Création
-                </p>
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">
+                  Creative Suite
+                </span>
               </div>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-1">
               {navigation.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setCurrentPage(item.id)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 ${
+                  className={`px-4 py-2 rounded-xl font-semibold text-sm transition-all flex items-center gap-2 ${
                     currentPage === item.id
-                      ? 'bg-[hsl(var(--hype-blue))] text-white shadow-hype-glow'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--muted)/0.3)]'
+                      ? 'bg-[hsl(var(--primary)/0.1)] text-[hsl(var(--primary))]'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--muted)/0.5)]'
                   }`}
                 >
                   <item.icon className="w-4 h-4" />
                   <span>{item.name}</span>
                 </button>
               ))}
+              <div className="h-6 w-px bg-[hsl(var(--border))] mx-2" />
+              <button className="px-4 py-2 bg-[hsl(var(--primary))] text-black text-sm font-bold rounded-xl flex items-center gap-2 hover:scale-105 transition-all">
+                <Rocket className="w-4 h-4" />
+                Go Pro
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden p-2 rounded-lg text-foreground hover:bg-[hsl(var(--muted)/0.3)] transition-colors"
+              className="md:hidden p-2 rounded-xl text-foreground hover:bg-[hsl(var(--muted)/0.5)] transition-colors"
             >
               {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -75,8 +99,8 @@ function AppRouter() {
 
         {/* Mobile Navigation */}
         {menuOpen && (
-          <div className="md:hidden border-t border-[hsl(var(--border))] bg-[hsl(var(--card))]">
-            <div className="px-4 py-3 space-y-2">
+          <div className="md:hidden border-t border-[hsl(var(--border))] bg-[hsl(var(--card))] animate-fadeIn">
+            <div className="px-4 py-4 space-y-2">
               {navigation.map((item) => (
                 <button
                   key={item.id}
@@ -84,29 +108,29 @@ function AppRouter() {
                     setCurrentPage(item.id);
                     setMenuOpen(false);
                   }}
-                  className={`w-full px-4 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-3 ${
+                  className={`w-full px-4 py-3 rounded-xl font-bold transition-all flex items-center gap-3 ${
                     currentPage === item.id
-                      ? 'bg-[hsl(var(--hype-blue))] text-white shadow-hype-glow'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--muted)/0.3)]'
+                      ? 'bg-[hsl(var(--primary))] text-black'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--muted)/0.5)]'
                   }`}
                 >
                   <item.icon className="w-5 h-5" />
-                  <div className="flex-1 text-left">
-                    <div className="font-semibold">{item.name}</div>
-                    <div className="text-xs opacity-80">{item.description}</div>
-                  </div>
+                  <span>{item.name}</span>
                 </button>
               ))}
+              <button className="w-full mt-4 px-4 py-4 bg-gradient-primary text-black font-black rounded-xl flex items-center justify-center gap-2">
+                <Rocket className="w-5 h-5" />
+                GO PRO
+              </button>
             </div>
           </div>
         )}
       </nav>
 
-      {/* Page Content */}
-      <div className="relative">
-        {currentPage === 'todo' && <AppEnhanced />}
-        {currentPage === 'broll' && <CarouselBuilder />}
-      </div>
+      {/* Main Content */}
+      <main className="relative">
+        {renderPage()}
+      </main>
     </div>
   );
 }
