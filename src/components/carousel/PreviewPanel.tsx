@@ -48,9 +48,9 @@ export const PreviewPanel = ({
   // Calculate preview scale based on container size
   useEffect(() => {
     const updateScale = () => {
-      const maxWidth = window.innerWidth < 1024 ? window.innerWidth - 64 : 450;
-      const scale = maxWidth / 1200; // Base on 1200px width
-      setPreviewScale(Math.min(scale, 0.4));
+      const containerWidth = window.innerWidth < 1024 ? window.innerWidth - 16 : 580;
+      const scale = containerWidth / 1200; 
+      setPreviewScale(Math.min(scale, 0.48));
     };
 
     updateScale();
@@ -87,20 +87,20 @@ export const PreviewPanel = ({
   const previewFormat = EXPORT_FORMATS.tiktok;
 
   return (
-    <div className="p-2 bg-hype-card rounded-xl border border-[hsl(var(--border))] shadow-hype flex flex-col gap-2 h-full">
+    <div className="p-1 bg-hype-card rounded-xl border border-[hsl(var(--border))] shadow-hype flex flex-col gap-1 h-full">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <h3 className="text-base font-semibold text-foreground flex items-center gap-2">
-          <Eye className="w-4 h-4 text-[hsl(var(--hype-yellow))]" />
+      <div className="flex items-center justify-between px-2 pt-1">
+        <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+          <Eye className="w-3.5 h-3.5 text-[hsl(var(--hype-yellow))]" />
           Aperçu
         </h3>
-        <span className="text-xs text-muted-foreground">
+        <span className="text-[10px] text-muted-foreground uppercase tracking-tight">
           {previewFormat.width}×{previewFormat.height}
         </span>
       </div>
 
       {/* Preview Canvas */}
-      <div className="flex-1 flex justify-center items-center bg-[hsl(var(--muted))]/10 rounded-lg overflow-hidden relative">
+      <div className="flex-1 flex justify-center items-center bg-[hsl(var(--muted))]/5 rounded-lg overflow-hidden relative">
         <div
           className="bg-black rounded-lg shadow-2xl"
           style={{
@@ -109,6 +109,7 @@ export const PreviewPanel = ({
             transition: 'transform 0.3s ease',
             width: `${previewFormat.width}px`,
             height: `${previewFormat.height}px`,
+            margin: `-${(previewFormat.height * (1 - previewScale)) / 2}px -${(previewFormat.width * (1 - previewScale)) / 2}px`,
           }}
         >
           <SlideCanvas

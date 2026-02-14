@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Layers, Sparkles, Home, Menu, X, Rocket } from 'lucide-react';
+import { Layers, Home, Menu, X, Rocket } from 'lucide-react';
 import LandingPage from './components/LandingPage';
 import CarouselBuilder from './CarouselBuilder';
-import BRollEditor from './BRollEditor';
 
-type Page = 'home' | 'carousel' | 'broll';
+type Page = 'home' | 'carousel';
 
 function AppRouter() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -21,19 +20,12 @@ function AppRouter() {
       name: 'Carrousels',
       icon: Layers,
     },
-    {
-      id: 'broll' as Page,
-      name: 'B-Roll',
-      icon: Sparkles,
-    },
   ];
 
   const renderPage = () => {
     switch (currentPage) {
       case 'carousel':
         return <CarouselBuilder />;
-      case 'broll':
-        return <BRollEditor />;
       case 'home':
       default:
         return <LandingPage onNavigate={setCurrentPage} />;
@@ -43,7 +35,7 @@ function AppRouter() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 glass-card border-b border-[hsl(var(--border))/0.5] shadow-glow">
+      <nav className="sticky top-0 z-50 glass-card border-b border-[hsl(var(--border))/0.5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}

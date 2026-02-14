@@ -1,7 +1,7 @@
-import { Sparkles, Layers, ArrowRight, Zap, Palette, Share2, MousePointer2 } from 'lucide-react';
+import { Sparkles, Layers, ArrowRight, Zap, Palette, Share2 } from 'lucide-react';
 
 interface LandingPageProps {
-  onNavigate: (page: 'broll' | 'carousel') => void;
+  onNavigate: (page: 'carousel') => void;
 }
 
 export default function LandingPage({ onNavigate }: LandingPageProps) {
@@ -17,100 +17,85 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
 
         <div className="animate-fadeIn inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[hsl(var(--muted))] border border-[hsl(var(--border))] text-xs font-medium text-[hsl(var(--primary))] mb-6">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Nouveauté : Générateur de B-Roll 2.0</span>
+          <span>Le créateur de carrousels le plus rapide</span>
         </div>
 
         <h1 className="animate-fadeIn text-5xl md:text-7xl font-black mb-6 tracking-tight [animation-delay:200ms]">
-          Transformez vos idées en <br />
-          <span className="gradient-text">Contenu Viral</span>
+          Dominez LinkedIn avec des <br />
+          <span className="gradient-text">Carrousels Premium</span>
         </h1>
         
         <p className="animate-fadeIn text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 [animation-delay:400ms]">
-          La suite d'outils créatifs conçue pour les créateurs modernes. 
-          Créez des carrousels élégants et des visuels B-Roll impactants en quelques secondes.
+          Transformez vos idées en carrousels élégants et engageants en quelques secondes. 
+          Conçu pour les créateurs qui veulent un impact maximal sans y passer des heures.
         </p>
 
         <div className="animate-fadeIn flex flex-wrap justify-center gap-4 [animation-delay:600ms]">
           <button 
             onClick={() => onNavigate('carousel')}
-            className="group px-8 py-4 bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary)/0.9)] text-[hsl(var(--primary-foreground))] rounded-xl font-bold transition-all hover:scale-105 shadow-glow flex items-center gap-2"
+            className="group px-8 py-4 bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary)/0.9)] text-[hsl(var(--primary-foreground))] rounded-xl font-bold transition-all hover:scale-105 flex items-center gap-2"
           >
-            Commencer à créer
+            Créer mon premier carrousel
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
-          <a 
-            href="#features"
-            className="px-8 py-4 bg-[hsl(var(--muted))] hover:bg-[hsl(var(--muted)/0.8)] border border-[hsl(var(--border))] text-foreground rounded-xl font-bold transition-all hover:scale-105"
-          >
-            Voir les outils
-          </a>
         </div>
       </section>
 
-      {/* Tools Section */}
-      <section id="features" className="w-full max-w-7xl mx-auto px-4 py-20">
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Carousel Tool Card */}
-          <div 
-            onClick={() => onNavigate('carousel')}
-            className="group cursor-pointer glass-card p-8 rounded-3xl transition-all hover:border-[hsl(var(--primary))] hover:translate-y-[-4px]"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-[hsl(var(--primary)/0.1)] border border-[hsl(var(--primary)/0.2)] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <Layers className="w-8 h-8 text-[hsl(var(--primary))]" />
-            </div>
-            <h3 className="text-2xl font-bold mb-3">Carousel Builder</h3>
-            <p className="text-muted-foreground mb-6">
-              Créez des carrousels LinkedIn et Instagram à partir de Markdown. 
-              Personnalisation complète, thèmes élégants et export PDF/Images.
-            </p>
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-center gap-2 text-sm">
-                <Zap className="w-4 h-4 text-[hsl(var(--accent))]" />
-                <span>Conversion Markdown rapide</span>
-              </li>
-              <li className="flex items-center gap-2 text-sm">
-                <Palette className="w-4 h-4 text-[hsl(var(--accent))]" />
-                <span>Templates professionnels</span>
-              </li>
-              <li className="flex items-center gap-2 text-sm">
-                <Share2 className="w-4 h-4 text-[hsl(var(--accent))]" />
-                <span>Export multi-format</span>
-              </li>
-            </ul>
-            <div className="inline-flex items-center gap-2 font-bold text-[hsl(var(--primary))] group-hover:gap-4 transition-all">
-              Ouvrir le builder <ArrowRight className="w-5 h-5" />
-            </div>
+      {/* Main Tool Preview Section */}
+      <section className="w-full max-w-5xl mx-auto px-4 py-12">
+        <div 
+          onClick={() => onNavigate('carousel')}
+          className="group cursor-pointer glass-card p-10 rounded-[2rem] transition-all hover:border-[hsl(var(--primary))] relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 p-8 opacity-5">
+            <Layers className="w-64 h-64" />
           </div>
 
-          {/* B-Roll Tool Card */}
-          <div 
-            onClick={() => onNavigate('broll')}
-            className="group cursor-pointer glass-card p-8 rounded-3xl transition-all hover:border-[hsl(var(--secondary))] hover:translate-y-[-4px]"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-[hsl(var(--secondary)/0.1)] border border-[hsl(var(--secondary)/0.2)] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <MousePointer2 className="w-8 h-8 text-[hsl(var(--secondary))]" />
+          <div className="relative z-10 flex flex-col md:flex-row gap-12 items-center">
+            <div className="flex-1">
+              <div className="w-16 h-16 rounded-2xl bg-[hsl(var(--primary)/0.1)] border border-[hsl(var(--primary)/0.2)] flex items-center justify-center mb-6">
+                <Layers className="w-10 h-10 text-[hsl(var(--primary))]" />
+              </div>
+              <h3 className="text-3xl font-bold mb-4">Carousel Builder Pro</h3>
+              <p className="text-muted-foreground text-lg mb-8">
+                Un outil complet pour concevoir, personnaliser et exporter vos carrousels. 
+                Utilisez le Markdown pour rédiger rapidement et laissez notre moteur s'occuper du design.
+              </p>
+              
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-[hsl(var(--accent))]" />
+                  <span className="font-medium">Édition Markdown</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Palette className="w-5 h-5 text-[hsl(var(--accent))]" />
+                  <span className="font-medium">Multi-thèmes</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Share2 className="w-5 h-5 text-[hsl(var(--accent))]" />
+                  <span className="font-medium">Export PDF HD</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-[hsl(var(--accent))]" />
+                  <span className="font-medium">Styles Cyber-Tech</span>
+                </div>
+              </div>
+
+              <div className="inline-flex items-center gap-2 text-xl font-bold text-[hsl(var(--primary))] group-hover:gap-4 transition-all">
+                Lancer le Builder <ArrowRight className="w-6 h-6" />
+              </div>
             </div>
-            <h3 className="text-2xl font-bold mb-3">B-Roll Generator</h3>
-            <p className="text-muted-foreground mb-6">
-              Générez des visuels 9:16 pour vos Reels et TikTok. 
-              Parfait pour les citations, les titres et les accroches visuelles.
-            </p>
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-center gap-2 text-sm">
-                <Zap className="w-4 h-4 text-[hsl(var(--accent))]" />
-                <span>Format 9:16 optimisé</span>
-              </li>
-              <li className="flex items-center gap-2 text-sm">
-                <Palette className="w-4 h-4 text-[hsl(var(--accent))]" />
-                <span>Styles typographiques modernes</span>
-              </li>
-              <li className="flex items-center gap-2 text-sm">
-                <Share2 className="w-4 h-4 text-[hsl(var(--accent))]" />
-                <span>Téléchargement instantané</span>
-              </li>
-            </ul>
-            <div className="inline-flex items-center gap-2 font-bold text-[hsl(var(--secondary))] group-hover:gap-4 transition-all">
-              Générer un visuel <ArrowRight className="w-5 h-5" />
+
+            <div className="w-full md:w-72 aspect-[4/5] bg-[hsl(var(--muted))] rounded-2xl border border-[hsl(var(--border))] shadow-2xl rotate-3 group-hover:rotate-0 transition-transform duration-500 overflow-hidden">
+               {/* Decorative card representation */}
+               <div className="h-1/3 bg-gradient-primary p-6 flex items-end">
+                  <div className="w-full h-4 bg-black/20 rounded-full" />
+               </div>
+               <div className="p-6 space-y-4">
+                  <div className="w-full h-2 bg-[hsl(var(--border))] rounded-full" />
+                  <div className="w-5/6 h-2 bg-[hsl(var(--border))] rounded-full" />
+                  <div className="w-4/6 h-2 bg-[hsl(var(--border))] rounded-full" />
+               </div>
             </div>
           </div>
         </div>
@@ -120,18 +105,14 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
       <footer className="w-full border-t border-[hsl(var(--border))] py-12 px-4 mt-auto">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--secondary))] flex items-center justify-center font-bold text-black text-xs">
+            <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center font-bold text-black text-xs">
               H
             </div>
             <span className="font-bold">Hype Tools</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            © 2026 Hype Technologies. Fait avec passion par Brama.
+            © 2026 Hype Technologies. Spécialiste du contenu carrousel.
           </p>
-          <div className="flex gap-6">
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Documentation</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">GitHub</a>
-          </div>
         </div>
       </footer>
     </div>

@@ -7,7 +7,7 @@
  */
 
 import { ChevronDown, Trash2, GripVertical, FileText, AlignLeft, AlignCenter, AlignRight, AlignJustify, Type, Heart, Layout, Code, Quote, Hash } from 'lucide-react';
-import { ImageUploader } from '../broll/ImageUploader';
+import { ImageUploader } from '../common/ImageUploader';
 import { MarkdownEditor } from './MarkdownEditor';
 import { TechStackSelector } from './TechStackSelector';
 import type { CarouselSlide } from '../../types/carousel.types';
@@ -30,7 +30,7 @@ export const SlideAccordionItem = ({
   onDelete,
 }: SlideAccordionItemProps) => {
   return (
-    <div className="bg-hype-card rounded-xl border border-[hsl(var(--border))] shadow-hype overflow-hidden transition-all duration-300 hover:shadow-hype-glow">
+    <div className="bg-hype-card rounded-xl border border-[hsl(var(--border))] shadow-hype overflow-hidden transition-all duration-300">
       {/* Accordion Header */}
       <button
         onClick={onToggle}

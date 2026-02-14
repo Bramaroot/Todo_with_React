@@ -3,7 +3,7 @@
  */
 
 import { Settings, Palette, Image as ImageIcon } from 'lucide-react';
-import { ImageUploader } from '../broll/ImageUploader';
+import { ImageUploader } from '../common/ImageUploader';
 import type { CarouselGlobalSettings, BackgroundType } from '../../types/carousel.types';
 
 interface GlobalSettingsPanelProps {

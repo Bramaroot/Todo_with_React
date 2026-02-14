@@ -21,7 +21,7 @@ import {
   Hash,
 } from 'lucide-react';
 import { CharlieOscarCanvas } from './CharlieOscarCanvas';
-import { ImageUploader } from '../broll/ImageUploader';
+import { ImageUploader } from '../common/ImageUploader';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import type {
   CharlieOscarBranding,
@@ -194,7 +194,7 @@ export function CharlieOscarEditor() {
   };
 
   // Calculate preview scale
-  const previewScale = Math.min(400 / CHARLIE_OSCAR_DIMENSIONS.width, 0.4);
+  const previewScale = Math.min(480 / CHARLIE_OSCAR_DIMENSIONS.width, 0.45);
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 h-full">
@@ -220,12 +220,14 @@ export function CharlieOscarEditor() {
         {showBranding && (
           <div className="p-5 bg-[hsl(var(--hype-card))] border border-[hsl(var(--border))] rounded-xl space-y-4">
             {/* Profile Image */}
-            <ImageUploader
-              label="Photo de profil"
-              value={branding.profileImage}
-              onChange={(url) => updateBranding('profileImage', url)}
-              aspectRatio="1/1"
-            />
+            <div className="max-w-[120px]">
+              <ImageUploader
+                label="Photo"
+                value={branding.profileImage}
+                onChange={(url) => updateBranding('profileImage', url)}
+                aspectRatio="1/1"
+              />
+            </div>
 
             {/* Username */}
             <div className="flex flex-col gap-2">
@@ -414,7 +416,7 @@ export function CharlieOscarEditor() {
         <button
           onClick={exportAllSlides}
           disabled={isExporting}
-          className="px-6 py-4 bg-gradient-to-r from-[hsl(var(--hype-blue))] to-[hsl(var(--hype-neonBlue))] text-white rounded-xl font-bold text-lg flex items-center justify-center gap-3 hover:shadow-hype-glow transition-all disabled:opacity-50"
+          className="px-6 py-4 bg-gradient-to-r from-[hsl(var(--hype-blue))] to-[hsl(var(--hype-neonBlue))] text-white rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all disabled:opacity-50"
         >
           {isExporting ? (
             <>
@@ -431,42 +433,42 @@ export function CharlieOscarEditor() {
       </div>
 
       {/* Right Panel - Preview */}
-      <div className="lg:w-[450px] flex flex-col gap-4">
+      <div className="lg:w-[500px] flex flex-col gap-4">
         {/* Preview Container */}
-        <div className="p-4 bg-[hsl(var(--hype-card))] border border-[hsl(var(--border))] rounded-xl">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-foreground">Preview</h3>
-            <span className="text-xs text-muted-foreground">
+        <div className="p-2 bg-[hsl(var(--hype-card))] border border-[hsl(var(--border))] rounded-xl">
+          <div className="flex items-center justify-between mb-2 px-2">
+            <h3 className="font-semibold text-foreground">Aperçu direct</h3>
+            <span className="text-[10px] text-muted-foreground uppercase">
               {CHARLIE_OSCAR_DIMENSIONS.width} × {CHARLIE_OSCAR_DIMENSIONS.height}
             </span>
           </div>
 
           {/* Slide Navigation */}
-          <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="flex items-center justify-center gap-4 mb-2">
             <button
               onClick={goToPrevSlide}
               disabled={currentSlideIndex === 0}
-              className="p-2 rounded-lg bg-[hsl(var(--muted)/0.3)] hover:bg-[hsl(var(--muted)/0.5)] transition-colors disabled:opacity-30"
+              className="p-1.5 rounded-lg bg-[hsl(var(--muted)/0.3)] hover:bg-[hsl(var(--muted)/0.5)] transition-colors disabled:opacity-30"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="text-sm font-medium">
+            <span className="text-xs font-bold">
               {currentSlideIndex + 1} / {slides.length}
             </span>
             <button
               onClick={goToNextSlide}
               disabled={currentSlideIndex === slides.length - 1}
-              className="p-2 rounded-lg bg-[hsl(var(--muted)/0.3)] hover:bg-[hsl(var(--muted)/0.5)] transition-colors disabled:opacity-30"
+              className="p-1.5 rounded-lg bg-[hsl(var(--muted)/0.3)] hover:bg-[hsl(var(--muted)/0.5)] transition-colors disabled:opacity-30"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
 
           {/* Canvas Preview */}
           <div
-            className="flex justify-center overflow-hidden rounded-lg bg-gray-900"
+            className="flex justify-center overflow-hidden rounded-lg bg-gray-900/50"
             style={{
-              height: `${CHARLIE_OSCAR_DIMENSIONS.height * previewScale + 20}px`,
+              height: `${CHARLIE_OSCAR_DIMENSIONS.height * previewScale + 10}px`,
             }}
           >
             <div
@@ -634,12 +636,14 @@ function ContentSlideEditor({
         />
       </div>
 
-      <ImageUploader
-        label="Screenshot"
-        value={content.screenshot}
-        onChange={(url) => onUpdate('screenshot', url)}
-        aspectRatio="16/9"
-      />
+      <div className="max-w-[200px]">
+        <ImageUploader
+          label="Screenshot"
+          value={content.screenshot}
+          onChange={(url) => onUpdate('screenshot', url)}
+          aspectRatio="16/9"
+        />
+      </div>
     </div>
   );
 }

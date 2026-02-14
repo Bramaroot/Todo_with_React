@@ -7,7 +7,7 @@
 
 import { User, Save, X, Pencil } from 'lucide-react';
 import { useState } from 'react';
-import { ImageUploader } from '../broll/ImageUploader';
+import { ImageUploader } from '../common/ImageUploader';
 import type { CarouselProfile } from '../../types/carousel.types';
 
 interface ProfileSectionProps {

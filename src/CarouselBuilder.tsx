@@ -81,7 +81,7 @@ function CarouselBuilder() {
               onClick={() => setSelectedModel('classic')}
               className={`flex items-center gap-3 px-6 py-3 rounded-xl font-bold transition-all ${
                 selectedModel === 'classic'
-                  ? 'bg-[hsl(var(--primary))] text-black shadow-glow'
+                  ? 'bg-[hsl(var(--primary))] text-black'
                   : 'text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--muted)/0.5)]'
               }`}
             >
@@ -95,14 +95,14 @@ function CarouselBuilder() {
               onClick={() => setSelectedModel('charlie-oscar')}
               className={`flex items-center gap-3 px-6 py-3 rounded-xl font-bold transition-all ${
                 selectedModel === 'charlie-oscar'
-                  ? 'bg-[hsl(var(--primary))] text-black shadow-glow'
+                  ? 'bg-[hsl(var(--primary))] text-black'
                   : 'text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--muted)/0.5)]'
               }`}
             >
               <FileText className="w-5 h-5" />
               <div className="text-left">
-                <div className="text-sm font-bold">Charlie Oscar</div>
-                <div className="text-xs opacity-80">Minimaliste blanc</div>
+                <div className="text-sm font-bold">Modern Simple</div>
+                <div className="text-xs opacity-80">Design épuré & pro</div>
               </div>
             </button>
           </div>
@@ -167,7 +167,7 @@ function CarouselBuilder() {
                       <button
                         onClick={addSlide}
                         disabled={!canAddSlide}
-                        className="px-4 py-2 bg-[hsl(var(--hype-blue))] hover:bg-[hsl(var(--hype-neonBlue))] text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2 shadow-lg hover:shadow-hype-glow"
+                        className="px-4 py-2 bg-[hsl(var(--hype-blue))] hover:bg-[hsl(var(--hype-neonBlue))] text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2 shadow-lg"
                       >
                         <Plus className="w-5 h-5" />
                         Ajouter
